@@ -179,6 +179,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
+                helpWindow.setHelpMessage(HelpWindow.DEFAULT_MESSAGE);
                 handleHelp();
             }
 
@@ -189,7 +190,8 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            helpWindow.setHelpMessage(e.getMessage());
+            handleHelp();
             throw e;
         }
     }
