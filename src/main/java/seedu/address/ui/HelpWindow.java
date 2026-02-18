@@ -23,7 +23,8 @@ public class HelpWindow extends UiPart<Stage> {
             + "  'clear': deletes ALL contacts\n"
             + "  'exit': exits this application\n\n"
             + "Syntax help is available for commands indicated by (*)\n"
-            + "For syntax help, enter the command with no arguments, eg 'add'";
+            + "For syntax help, enter the command with no arguments, eg 'add'\n"
+            + "Tip: [ENTER] can be used to exit help window popups.";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
