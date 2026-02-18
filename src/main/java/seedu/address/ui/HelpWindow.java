@@ -12,7 +12,18 @@ import seedu.address.commons.core.LogsCenter;
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<Stage> {
-    public static final String DEFAULT_MESSAGE = "default help";
+    public static final String DEFAULT_MESSAGE =
+            "Available commands:\n"
+            + "  'help': shows this help window\n"
+            + "  'add': adds a contact (*)\n"
+            + "  'list': lists all contacts\n"
+            + "  'edit': edits a contact (*)\n"
+            + "  'find': lists contacts by given criteria (*)\n"
+            + "  'delete': deletes a contact (*)\n"
+            + "  'clear': deletes ALL contacts\n"
+            + "  'exit': exits this application\n\n"
+            + "Syntax help is available for commands indicated by (*)\n"
+            + "For syntax help, enter the command with no arguments, eg 'add'";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
