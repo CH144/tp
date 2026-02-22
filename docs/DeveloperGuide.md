@@ -328,12 +328,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 *{More to be added}*
 
 ### Non-Functional Requirements
+#### Environment
+1.  Should work on any _mainstream OS_ as long as it has Java `17` installed.
+2.  Should be fully usable offline, without remote services nor servers.
+3.  Should offer sufficient in-built support for fully offline use.
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+#### App Format
+1.  Should work without requiring an installer.
+2.  Should be packaged as a single `jar` or `zip` file.
+3.  Should not exceed 100MB in size for the file.
 
-*{More to be added}*
+#### Visual Performance
+1.  GUI should work _well_ for:
+  * standard screen resolutions 1920x1080 and higher
+  * for screen scales 100% and 125%
+2.  GUI should work for:
+  * resolutions 1280x720 and higher
+  * for screen scales 150%
+
+#### Functional Performance
+1.  Should be able to hold up to 100 persons without a noticeable sluggishness in performance for typical usage.
+2.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3.  Should respond in at most 2 seconds for any command.
+
+#### Data
+1.  Should not rely on database management systems.
+2.  Should be formatted in human-readable format.
+3.  Should be saved locally in human-editable text file.
+4.  Should be recoverable in the event of corruption.
 
 ### Glossary
 
