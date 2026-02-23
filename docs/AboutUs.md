@@ -18,8 +18,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/ch144)]
 [[portfolio](team/ch144.md)]
 
-* Role: Developer
-* Responsibilities: UX
+* Role: Scheduling and tracking.
+* Responsibilities: In charge of defining, assigning, and tracking project tasks.
 
 ### Jane Doe
 
