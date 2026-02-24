@@ -283,8 +283,8 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Value proposition**: manage critical employee information faster than a typical mouse/GUI driven app
 
-The app does not support managing larger workgroups beyond the average startup size (~50 people) 
-and will only manage critical employee-related information such as contact details, departments, 
+The app does not support managing larger workgroups beyond the average startup size (~50 people)
+and will only manage critical employee-related information such as contact details, departments,
 team structures and salaries.
 
 ### User stories
