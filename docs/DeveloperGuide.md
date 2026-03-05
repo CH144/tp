@@ -300,30 +300,115 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Big Brother` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC1 Add a person**
+
+**MSS**
+
+1. User requests to add a person
+2. Big Brother indicates that a person is added
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User inputs an invalid command.
+    * 1a1. Big Brother shows an error message.
+
+       Use case ends.
+
+**Use case: UC2 Add a tag to a person**
 
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+2.  Big Brother shows a list of persons
+3.  User requests to add a tag to a specific person in the list
+4.  Big Brother adds the tag to the person
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
   Use case ends.
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. Big Brother shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: UC3 Delete a person**
+
+**MSS**
+
+1.  User requests to list persons
+2.  Big Brother shows a list of persons
+3.  User requests to delete a specific person in the list
+4.  Big Brother deletes the person
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+
+  Use case ends.
+
+* 3a. The user specified cannot be found.
+
+    * 3a1. Big Brother shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC4 Delete a tag**
+
+**MSS**
+
+1.  User requests to list persons
+2.  Big Brother shows a list of persons
+3.  User requests to delete a tag from a specific person in the list
+4.  Big Brother deletes the tag from the person
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+
+  Use case ends.
+
+* 3a. The user specified cannot be found.
+
+    * 3a1. Big Brother shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The tag specified cannot be found.
+    
+    * 3b1. Big Brother shows an error message.
+
+      Use case resumes at step 2.
+      
+**Use case: UC5 Find a person**
+
+**MSS**
+
+1.  User requests to find a specific person
+2.  Big Brother displays the details of the specific person
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. Person specified does not exist.
+    * 1a1. Big Brother shows an error message.
+
+      Use case ends.
+
 
 *{More to be added}*
 
