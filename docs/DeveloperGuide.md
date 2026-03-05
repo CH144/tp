@@ -446,6 +446,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Employee profile**: Grouped information about an employee's name, phone number, email, address, associated tags (if any), salary and certificates (if any)
+* **Invalid command**: A command that is not supported by the application.
+* **Above average typing speed**: An average typing speed > 80 WPM.
 
 --------------------------------------------------------------------------------------------------------------------
 
