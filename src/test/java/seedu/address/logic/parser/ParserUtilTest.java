@@ -193,4 +193,13 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseSalary_invalidValue_throwsParseException() {
+        // Non-numeric salary
+        assertThrows(ParseException.class, () -> ParserUtil.parseSalary("two thousand"));
+
+        // Negative salary
+        assertThrows(ParseException.class, () -> ParserUtil.parseSalary("-100"));
+    }
 }
