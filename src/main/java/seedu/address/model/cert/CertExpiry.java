@@ -3,9 +3,9 @@ package seedu.address.model.cert;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-/** 
+/**
  * Represents the expiry date of a certificate.
-*/
+ */
 public class CertExpiry {
     public static final String MESSAGE_CONSTRAINTS =
             "Certificate expiry dates should be in the format of yyyy-mm-dd.";
