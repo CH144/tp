@@ -44,8 +44,8 @@ public class Person {
         this.certs = new ArrayList<Certificate>();
     }
 
-    public Person(Name name, Phone phone, 
-                Email email, Address address, Set<Tag> tags, 
+    public Person(Name name, Phone phone,
+                Email email, Address address, Set<Tag> tags,
                 Salary salary, ArrayList<Certificate> certs) {
         requireAllNonNull(name, phone, email, address, tags, salary);
         this.name = name;
