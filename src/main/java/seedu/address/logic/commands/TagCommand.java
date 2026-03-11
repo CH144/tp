@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,8 +37,8 @@ public class TagCommand extends Command {
             + PREFIX_DELETE_TAG + " WRONG_DEPT";
 
     public static final String MESSAGE_TAG_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "No tags were changed";
+    public static final String MESSAGE_NOT_TAGS_PROVIDED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "No tags were changed";
 
     private final Index targetIndex;
     private final Set<Tag> tagsToAdd;
@@ -62,7 +63,7 @@ public class TagCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (tagsToAdd.isEmpty() && tagsToDelete.isEmpty()) {
-            throw new CommandException(MESSAGE_NOT_EDITED);
+            throw new CommandException(MESSAGE_NOT_TAGS_PROVIDED);
         }
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -72,7 +73,7 @@ public class TagCommand extends Command {
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Person editedPerson = modifyTagsForPerson(personToEdit, tagsToAdd, tagsToDelete);
         if (personToEdit.getTags().equals(editedPerson.getTags())) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_NOT_EDITED);
         }
 
         model.setPerson(personToEdit, editedPerson);
@@ -94,10 +95,11 @@ public class TagCommand extends Command {
         Address address = personToEdit.getAddress();
         Salary updatedSalary = personToEdit.getSalary();
 
-        tagsToAdd.addAll(personToEdit.getTags());
-        tagsToAdd.removeAll(tagsToDelete);
+        Set<Tag> updatedTags = new HashSet<>(tagsToAdd);
+        updatedTags.addAll(personToEdit.getTags());
+        updatedTags.removeAll(tagsToDelete);
 
-        return new Person(name, phone, email, address, tagsToAdd, updatedSalary);
+        return new Person(name, phone, email, address, updatedTags, updatedSalary);
     }
 
     @Override
@@ -112,7 +114,9 @@ public class TagCommand extends Command {
         }
 
         TagCommand otherTagCommand = (TagCommand) other;
-        return targetIndex.equals(otherTagCommand.targetIndex);
+        return targetIndex.equals(otherTagCommand.targetIndex)
+                && tagsToAdd.equals(otherTagCommand.tagsToAdd)
+                && tagsToDelete.equals(otherTagCommand.tagsToDelete);
     }
 
     @Override
