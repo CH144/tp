@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphabets, spaces, forward slashes and it should not be blank"
+            "Names should only contain alphabets, spaces, forward slashes and it should not be blank\n"
             + "If a “/” is used (e.g., S/O), the letters immediately before and after must be uppercase";
 
     /*
