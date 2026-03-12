@@ -2,24 +2,30 @@ package seedu.address.model.cert;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Set;
-
-import javax.swing.text.html.HTML.Tag;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.cert.CertName;
-import seedu.address.model.person.Person;
-import seedu.address.model.cert.CertExpiry;
 
+/**
+ * Represents a certificate that a person can hold.
+ */
 public class Certificate {
-    private CertName name;
-    private CertExpiry expiry;
+    private final CertName name;
+    private final CertExpiry expiry;
 
+    /**
+     * Constructor for a Certificate with no expiry date.
+     * Dummy value 9999-12-31 is used to substitute an impossibly distant expiry date.
+     */
     public Certificate(CertName name) {
         this.name = name;
         this.expiry = new CertExpiry(LocalDate.parse("9999-12-31"));
     }
 
+    /**
+     * Constructor for a Certificate with an expiry date.
+     * @param name Name of Certificate
+     * @param expiry Expiry date of the Certificate
+     */
     public Certificate(CertName name, CertExpiry expiry) {
         this.name = name;
         this.expiry = expiry;
@@ -33,6 +39,10 @@ public class Certificate {
         return expiry;
     }
 
+    /**
+     * Returns true if both certificates have the same name.
+     * This defines a weaker notion of equality between two certificates.
+     */
     public boolean isSameCert(Certificate otherCertificate) {
         if (otherCertificate == this) {
             return true;

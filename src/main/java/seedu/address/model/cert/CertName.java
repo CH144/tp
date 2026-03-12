@@ -3,6 +3,9 @@ package seedu.address.model.cert;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents the name of a certificate.
+ */
 public class CertName {
 
     /**
