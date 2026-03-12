@@ -7,8 +7,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -22,12 +20,10 @@ public class TagCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        assertParseSuccess(parser, "1" + MULTI_TAG_DESC_AMY + MULTI_TAG_DESC_BOB,
+        assertParseSuccess(parser, "1 a/TEST1 d/TEST2",
                 new TagCommand(INDEX_FIRST_PERSON,
-                        new HashSet<>(Arrays.stream(MULTI_TAG_DESC_AMY
-                                .split("\\s+")).map(Tag::new).toList()),
-                        new HashSet<>(Arrays.stream(MULTI_TAG_DESC_BOB
-                                .split("\\s+")).map(Tag::new).toList())
+                        Set.of(new Tag("TEST1")),
+                        Set.of(new Tag("TEST2"))
                         ));
     }
 
