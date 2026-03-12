@@ -25,7 +25,9 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234"; // no space between country code and phone
     private static final String INVALID_ADDRESS = "9*1 Tah Ching Road"; // contains invalid special char *
     private static final String INVALID_EMAIL = "example.com"; // missing @ char
-    private static final String INVALID_TAG = "friend, family"; // contains ,
+    private static final String INVALID_TAG = "[friend]";
+    private static final String INVALID_TAG_BY_LENGTH = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "+65 123456";
@@ -157,6 +159,12 @@ public class ParserUtilTest {
     public void parseTag_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
     }
+
+    @Test
+    public void parseTag_invalidLength_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG_BY_LENGTH));
+    }
+
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {

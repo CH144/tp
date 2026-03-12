@@ -56,8 +56,9 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "11111111"; // missing country code
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + "h*te@gmail.com"; // local part has * char
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby, friend"; // contains ','
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + "!HOUSE AT HOUSE"; // ! not allowed
+    public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY + "two thousand";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
