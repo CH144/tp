@@ -26,4 +26,20 @@ public class CertExpiry {
             return false;
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other instanceof CertExpiry otherDate) {
+            return this.expiryDate.equals(otherDate.expiryDate);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return expiryDate.hashCode();
+    }
 }
