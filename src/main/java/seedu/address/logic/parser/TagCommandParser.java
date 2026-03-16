@@ -56,6 +56,10 @@ public class TagCommandParser implements Parser<TagCommand> {
                     .ifPresent(tagsToDelete::addAll);
         }
 
+        if ((tagsToAdd.isEmpty() && tagsToDelete.isEmpty())) {
+            throw new ParseException(String.format(TagCommand.MESSAGE_NOT_EDITED));
+        }
+
         return new TagCommand(index, tagsToAdd, tagsToDelete);
     }
 

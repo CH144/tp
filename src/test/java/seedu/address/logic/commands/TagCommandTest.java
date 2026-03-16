@@ -236,7 +236,6 @@ public class TagCommandTest {
         assertCommandFailure(tagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-
     @Test
     public void equals() {
         Set<Tag> toAdd = Set.of(new Tag(VALID_TAG_FRIEND));
