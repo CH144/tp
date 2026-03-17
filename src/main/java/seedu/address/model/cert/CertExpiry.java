@@ -1,5 +1,7 @@
 package seedu.address.model.cert;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -11,7 +13,12 @@ public class CertExpiry {
             "Certificate expiry dates should be in the format of yyyy-mm-dd.";
     private LocalDate expiryDate;
 
+    /**
+     * Constructs a valid CertExpiry.
+     * @param expiry Expiry date
+     */
     public CertExpiry(LocalDate expiry) {
+        requireNonNull(expiry);
         expiryDate = expiry;
     }
 
