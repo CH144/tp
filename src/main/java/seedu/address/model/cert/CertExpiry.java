@@ -47,4 +47,8 @@ public class CertExpiry {
     public String toString() {
         return this.expiryDate.toString();
     }
+
+    public String getDisplayDateString() {
+        return expiryDate.toString();
+    }
 }
