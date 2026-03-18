@@ -10,14 +10,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Address {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Your address should not exceed 100 characters or have special characters "
-                    + "which are not these 4: # , - /";
+           "Addresses should consist of only alphanumeric characters,\n"
+            + "and these three special characters # , -\n"
+            + "and should be at most 100 characters long.";
 
     /**
      * (1) Must not exceed 100 characters.
      * (2) Only alphanumeric characters, spaces, and (# , - /) are allowed.
      */
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9\\s#\\-/,]{0,100}$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9\\s#\\-,]{0,100}$";
 
     public final String value;
 

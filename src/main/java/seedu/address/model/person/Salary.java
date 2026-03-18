@@ -8,10 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidSalary(String)}
  */
 public class Salary {
-
-
     public static final String MESSAGE_CONSTRAINTS =
-            "Salaries should only contain digits";
+            "Salaries should contain only digits.";
+
     public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
 

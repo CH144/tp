@@ -9,10 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Phone {
 
-
     public static final String MESSAGE_CONSTRAINTS =
-            "If not blank, phone numbers should adopt the format +<COUNTRY_CODE> <PHONE NUMBER>, "
-                    + "with a space between country code and number, followed by min 3 max 15 digits only";
+            "Phone numbers should adopt the format:\n"
+            + " + followed by the country code, followed by a space,\n"
+            + "then the phone number of minimum 3 and maximum 15 digits.\n"
+            + "eg +65 81234567";
+
     /* If not blank:
      * (1) Must start with '+' followed by 1-3 digits for country code.
      * (2) Must be followed by a single space.
