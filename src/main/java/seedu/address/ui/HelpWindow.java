@@ -13,7 +13,21 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String HELP_MESSAGE = "placeholder message";
+    public static final String HELP_MESSAGE =
+            "Available commands:\n"
+            + " * 'add' : adds a new contact\n"
+            + " * 'edit' : edits an existing contact\n"
+            + " * 'delete' : delete an existing contact\n"
+            + "    'clear' : deletes all existing contacts\n"
+            + " * 'cert-add' : adds a certificate to an existing contact\n"
+            + " * 'cert-del' : deletes a certificate from an existing contact\n"
+            + " * 'tag' : adds or deletes tag from an existing contact\n"
+            + " * 'find' : finds existing contacts based on search criteria\n"
+            + "    'list' : lists all existing contacts\n"
+            + "    'exit' : exits the applications\n"
+            + "    'help': shows this help menu\n\n"
+            + "TIP: commands marked with * have detailed usage explanations.\n"
+            + "TIP: [ENTER] can be used to close help window popups.";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
