@@ -20,6 +20,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private ReadOnlyAddressBook previousAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
@@ -109,6 +110,25 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    //=========== Undo logic =================================================================================
+    @Override
+    public void commitAddressBook() {
+        this.previousAddressBook = new AddressBook(addressBook);
+    }
+
+    @Override
+    public void undoAddressBook() {
+        if (this.canUndo()) {
+            setAddressBook(previousAddressBook);
+            previousAddressBook = null; //clear after use, since undo only restores back to 1 state prior
+        }
+    }
+
+    @Override
+    public boolean canUndo() {
+        return previousAddressBook != null;
     }
 
     //=========== Filtered Person List Accessors =============================================================
