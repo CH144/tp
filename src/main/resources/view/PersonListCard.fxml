@@ -4,21 +4,44 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <ScrollPane fitToWidth="true">
+  <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true">
     <GridPane>
-      <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
-        <Label fx:id="id" styleClass="cell_big_label"/>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true"/>
-        <FlowPane fx:id="tags" />
-        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" wrapText="true"/>
-        <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true"/>
-        <Label fx:id="email" styleClass="cell_small_label" text="\$email" wrapText="true"/>
-        <Label fx:id="salary" styleClass="cell_small_label" text="\$salary" wrapText="true"/>
-        <FlowPane fx:id="certs" VBox.vgrow="ALWAYS" orientation="VERTICAL"/>
+
+      <VBox alignment="CENTER_LEFT" GridPane.rowIndex="0">
+        <HBox>
+        <Label fx:id="id" styleClass="cell_big_label" />
+        <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
+        </HBox>
       </VBox>
+
+      <VBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
+        <FlowPane fx:id="tags" />
+      </VBox>
+
+      <VBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
+        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" wrapText="true" />
+      </VBox>
+
+      <VBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
+        <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
+      </VBox>
+
+      <VBox alignment="CENTER_LEFT" GridPane.rowIndex="4">
+        <Label fx:id="email" styleClass="cell_small_label" text="\$email" wrapText="true" />
+      </VBox>
+
+      <VBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
+        <Label fx:id="salary" styleClass="cell_small_label" text="\$salary" wrapText="true" />
+      </VBox>
+
+      <VBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
+        <FlowPane fx:id="certs" orientation="VERTICAL" />
+      </VBox>
+
     </GridPane>
   </ScrollPane>
 </VBox>
