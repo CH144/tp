@@ -4,9 +4,9 @@
   pageNav: 3
 ---
 
-# AB-3 User Guide
+# Big Brother User Guide
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+Big Brother is a desktop app for managing employee contacts, optimized for use via a Command Line Interface (CLI) while displaying the contacts efficiently via a Graphical User Interface (GUI).
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -15,27 +15,37 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have Java `17` installed in your Computer.<br>
+   You may find instructions on how to do so for your operating system version [here](https://se-education.org/guides/tutorials/javaInstallation.html).<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-T09-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your BigBrother.
+1. Copy the file to the folder you want to use as the _home folder_ for Big Brother.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar bigbrother.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+1. Open a command terminal (you can search for it in the start menu) and change the working folder to the one you put the app in. All operating systems support this with the `cd` command:<br>
+   **Windows** `cd C:\Users\john\big_brother_home_folder`<br>
+   **Linux** `cd /home/john/big_brother_home_folder`<br>
+   **Mac** `cd /Users/john/big_brother_home_folder`<br>
+
+1. Run the `java -jar bigbrother.jar` command to start the app.<br>
+   Note the app name may be slightly different due to versions.<br>
+   A GUI similar to the below should appear in a few seconds.<br><br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open an external help window.<br>
+1. Type a command in the command box (the red-brown box at the top) and press Enter to execute it.
    Some example commands you can try:
+
+   * `help` : Pops up an in-app help menu of available commands.
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01 s/3000` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/+65 98765432 e/johnd@example.com a/Abc Rd, Blk 123, #01-01 s/3000` :<br>
+     Adds a new contact 'John Doe' with the given details (elaborated in the explanation for `add` [below](#adding-a-person-add))
 
    * `delete 3` : Deletes the 3rd contact shown in the currently displayed list.
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Deletes all contacts. You can use this to clear the existing sample data.
 
    * `exit` : Exits the app.
 
@@ -50,34 +60,47 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. for `n/NAME`, `NAME` is the parameter.
 
-* Items in square brackets can be empty, but prefix has to be specified.<br>
-  e.g `n/NAME [e/EMAIL]` can be used as `n/John Doe e/ureka@gmail.com` or as `n/John Doe e/`.
+* Items in square brackets are optional. More explanations will be provided where they appear.<br>
+  e.g `tag INDEX [a/TAG_NAME] [d/TAG_NAME]`.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+  e.g. if you input `help 123`, it will interpreted as just `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
-### Viewing help : `help`
+### Navigating the GUI:
+* The GUI is structured such that the main contacts list is a big scrollable section, and the contact entries are smaller scollable sections.
 
-Pops up an external window with brief explanations of command usages.
+* You can hover your mouse cursor over the desired scroll bar, then scroll each section independently.
+
+* If you perform any commands that modify the contact list or contact details, all the scroll bars will automatically jump back to the top.
+
+* Mouseless-support in planned to be implemented in a future update.
+
+### Viewing in-app help : `help`
+Format: `help`
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
+<box type="tip" seamless>
 
+**Tips for in-app help**
 
-### Adding a person: `add`
+> You can automatically close the popups with Enter on Windows and Linux, or Spacebar on Mac.<br>
 
-Adds a person to the address book.
+> If you need more help with a command marked by a `*`, enter it with no arguments.
+</box>
 
-Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
+![add usage message](images/addUsageMessage.png)
+
+### Adding a contact : `add`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY`
 
 <box type="tip" seamless>
 
@@ -121,21 +144,15 @@ Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
 > [**PERSON duplicate handling**]<br>
 > (1) EMAIL and PHONE_NUMBER are empty: duplicates if NAMEs are the same<br>
 > (2) Else, 2 persons are duplicates if their NAME & PHONE_NUMBER & EMAIL are the same<br>
+</box>
+
 
 Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01 s/`
 * `add n/Betsy Crowe s/ e/betsycrowe@example.com a/Newgate Prison p/+81 1234567`
 
-### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
-
-Format: `list`
-
-### Editing a person : `edit`
-
-Edits an existing person in the address book.
-
+### Editing a contact : `edit`
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
@@ -145,6 +162,17 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
 Examples:
 *  `edit 1 p/+017 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `+017 91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
+
+### Deleting an existing contact : `delete`
+Format: `delete INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Locating persons by name: `find`
 
@@ -164,24 +192,10 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Listing all contacts : `list`
+Format: `list`
 
-Deletes the specified person from the address book.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-
-### Adding / Deleting tasks : `tag`
-
-Adds and/or deletes Tags for a specified person in the address book.
-
+### Adding and deleting tags of a contact: `tag`
 Format `tag INDEX [a/TAGS TO ADD SEPARATED BY SPACE] [d/TAGS TO DELETE SEPARATED BY SPACE]`
 
 * Adds / Deletes Tags for the person at the specified `INDEX`.
@@ -200,24 +214,16 @@ Examples:
 > - Max size 30 characters
 
 ### Clearing all entries : `clear`
-
-Clears all entries from the address book.
-
 Format: `clear`
 
 ### Exiting the program : `exit`
-
-Exits the program.
-
 Format: `exit`
 
 ### Saving the data
-
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Big Brother data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
-
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Big Brother data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
@@ -246,7 +252,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/SALARY]` <br> e.g., `add n/James Ho p/+65 22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 s/4000`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY` <br> e.g., `a`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/SALARY]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
