@@ -86,16 +86,16 @@ public class AddCommandTest {
 
     @Test
     public void execute_nullPersonAssertion_throwsAssertionError() {
-        AddCommand addCommand = new AddCommand(ALICE);
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().build();
+        AddCommand addCommand = new AddCommand(validPerson);
         try {
             java.lang.reflect.Field field = AddCommand.class.getDeclaredField("toAdd");
             field.setAccessible(true);
             field.set(addCommand, null);
-        } catch (Exception e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        assertThrows(AssertionError.class, () -> addCommand.execute(modelStub));
+        assertThrows(AssertionError.class, () -> addCommand.execute(new ModelStubAcceptingPersonAdded()));
     }
 
     /**

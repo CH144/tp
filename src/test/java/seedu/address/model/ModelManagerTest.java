@@ -72,7 +72,7 @@ public class ModelManagerTest {
             java.lang.reflect.Field field = ModelManager.class.getDeclaredField("addressBook");
             field.setAccessible(true);
             field.set(modelManager, null);
-        } catch (Exception e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
         assertThrows(AssertionError.class, () -> modelManager.commitAddressBook());
