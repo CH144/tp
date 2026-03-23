@@ -25,7 +25,7 @@ import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Tag or DeTag a person identified using it's displayed index from the address book.
  */
 public class TagCommand extends Command {
 
