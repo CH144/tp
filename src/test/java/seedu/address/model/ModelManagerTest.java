@@ -68,14 +68,15 @@ public class ModelManagerTest {
 
     @Test
     public void commitAddressBook_nullAddressBook_throwsAssertionError() {
+        ModelManager localModelManager = new ModelManager();
         try {
             java.lang.reflect.Field field = ModelManager.class.getDeclaredField("addressBook");
             field.setAccessible(true);
-            field.set(modelManager, null);
+            field.set(localModelManager, null);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
-        assertThrows(AssertionError.class, () -> modelManager.commitAddressBook());
+        assertThrows(AssertionError.class, () -> localModelManager.commitAddressBook());
     }
 
     @Test
