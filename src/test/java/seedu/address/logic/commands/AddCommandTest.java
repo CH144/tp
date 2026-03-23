@@ -84,6 +84,20 @@ public class AddCommandTest {
         assertEquals(expected, addCommand.toString());
     }
 
+    @Test
+    public void execute_nullPersonAssertion_throwsAssertionError() {
+        Person validPerson = new PersonBuilder().build();
+        AddCommand addCommand = new AddCommand(validPerson);
+        try {
+            java.lang.reflect.Field field = AddCommand.class.getDeclaredField("toAdd");
+            field.setAccessible(true);
+            field.set(addCommand, null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(AssertionError.class, () -> addCommand.execute(new ModelStubAcceptingPersonAdded()));
+    }
+
     /**
      * A default model stub that have all of the methods failing.
      */
