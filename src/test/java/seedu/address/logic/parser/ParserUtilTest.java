@@ -19,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.TagColour;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel"; // contains special char @
@@ -151,32 +152,36 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
+    public void parseTag_null_throwsNullNamePointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null, TagColour.DEFAULT));
+    }
+
+    @Test
+    public void parseTag_null_throwsNullColourPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTag("TEST", null));
     }
 
     @Test
     public void parseTag_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG, TagColour.DEFAULT));
     }
 
     @Test
     public void parseTag_invalidLength_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG_BY_LENGTH));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG_BY_LENGTH, TagColour.DEFAULT));
     }
-
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
         Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1, TagColour.DEFAULT));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
         Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace, TagColour.DEFAULT));
     }
 
     @Test
