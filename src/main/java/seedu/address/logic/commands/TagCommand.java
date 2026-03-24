@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -42,7 +43,6 @@ public class TagCommand extends Command {
             COMMAND_WORD, PREFIX_ADD_TAG, PREFIX_DELETE_TAG);
 
     public static final String MESSAGE_TAG_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NO_TAGS_PROVIDED = "At least one a/ or d/ must be provided.";
     public static final String MESSAGE_NOT_EDITED = "No tags were changed.";
 
     private final Index targetIndex;
@@ -68,7 +68,7 @@ public class TagCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (tagsToAdd.isEmpty() && tagsToDelete.isEmpty()) {
-            throw new CommandException(MESSAGE_NO_TAGS_PROVIDED);
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

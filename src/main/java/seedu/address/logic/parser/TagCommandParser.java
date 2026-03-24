@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TagCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagNameComparator;
@@ -27,8 +28,8 @@ public class TagCommandParser implements Parser<TagCommand> {
 
     private static final Logger logger = LogsCenter.getLogger(TagCommandParser.class);
 
-    public static final String MESSAGE_USELESS_COLOUR = "Colours are invalid when not creating Tags. Example Usage: tag a/TAG1 c/RED";
-
+    public static final String MESSAGE_USELESS_COLOUR = "Colours are invalid when not creating Tags.\n\n"
+            + TagCommand.MESSAGE_USAGE;
     /**
      * Parses the given {@code String} of arguments in the context of the TagCommand
      * and returns an TagCommand object for execution.
@@ -41,13 +42,18 @@ public class TagCommandParser implements Parser<TagCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ADD_TAG, PREFIX_DELETE_TAG, PREFIX_COLOUR_TAG);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ADD_TAG, PREFIX_DELETE_TAG, PREFIX_COLOUR_TAG);
 
         Index index;
         Set<Tag> tagsToAdd = new TreeSet<>(new TagNameComparator());
         Set<Tag> tagsToDelete = new TreeSet<>(new TagNameComparator());
         Optional<String> colourGiven = argMultimap.getValue(PREFIX_COLOUR_TAG);
 
-        index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException parseException) {
+            throw new ParseException(parseException.getMessage() + "\n\n" + TagCommand.MESSAGE_USAGE);
+        }
 
         if (argMultimap.getValue(PREFIX_ADD_TAG).isPresent()) {
             if (colourGiven.isPresent()) {
@@ -57,26 +63,23 @@ public class TagCommandParser implements Parser<TagCommand> {
                 tagsToAdd = parseTagsForEdit(Set.of(argMultimap.getValue(PREFIX_ADD_TAG).get().split("\\s+")));
             }
             logger.finest("Adding tags: " + tagsToAdd.toString());
+        } else if (colourGiven.isPresent()) {
+            throw new ParseException(String.format(MESSAGE_USELESS_COLOUR));
         }
 
         // Technically do not need to assign the correct colour to the tags to be deleted
         if (argMultimap.getValue(PREFIX_DELETE_TAG).isPresent()) {
             if (colourGiven.isPresent()) {
                 tagsToDelete = parseTagsForEdit(Set.of(argMultimap.getValue(PREFIX_DELETE_TAG).get().split("\\s+")),
-                        argMultimap.getValue(PREFIX_COLOUR_TAG).get());
+                        colourGiven.get());
             } else {
                 tagsToDelete = parseTagsForEdit(Set.of(argMultimap.getValue(PREFIX_DELETE_TAG).get().split("\\s+")));
             }
             logger.finest("Tags to delete: " + tagsToDelete.toString());
         }
 
-        if ((tagsToAdd.isEmpty())) {
-            if (tagsToDelete.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
-            }
-            if (colourGiven.isPresent()) {
-                throw new ParseException(String.format(MESSAGE_USELESS_COLOUR));
-            }
+        if (tagsToAdd.isEmpty() && tagsToDelete.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
 
         logger.finer("TagCommand created!");
