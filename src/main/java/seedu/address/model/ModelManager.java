@@ -115,7 +115,9 @@ public class ModelManager implements Model {
     //=========== Undo logic =================================================================================
     @Override
     public void commitAddressBook() {
+        assert addressBook != null : "Model must have a valid AddressBook to commit";
         this.previousAddressBook = new AddressBook(addressBook);
+        logger.fine("Model state committed to backup.");
     }
 
     @Override
@@ -124,6 +126,7 @@ public class ModelManager implements Model {
             this.addressBook.resetData(previousAddressBook);
             previousAddressBook = null; //clear after use, since undo only restores back to 1 state prior
             updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            logger.info("Model state restored from backup.");
         }
     }
 

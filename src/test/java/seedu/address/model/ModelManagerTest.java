@@ -67,6 +67,19 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void commitAddressBook_nullAddressBook_throwsAssertionError() {
+        ModelManager localModelManager = new ModelManager();
+        try {
+            java.lang.reflect.Field field = ModelManager.class.getDeclaredField("addressBook");
+            field.setAccessible(true);
+            field.set(localModelManager, null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(AssertionError.class, () -> localModelManager.commitAddressBook());
+    }
+
+    @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setAddressBookFilePath(path);
