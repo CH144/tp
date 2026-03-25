@@ -13,9 +13,9 @@ public enum TagColour {
     RED("tag_colour_red", "red"),
     YELLOW("tag_colour_yellow", "yellow"),
     GREEN("tag_colour_green", "green"),
-    PURPLE("tag_colour_purple", "purple"),
     BLUE("tag_colour_default", "blue"),
-    DEFAULT("tag_colour_default", "default");
+    DEFAULT("tag_colour_default", "default"),
+    PURPLE("tag_colour_purple", "purple");
 
     public static final String MESSAGE_INVALID_COLOUR =
             "Tag Colour does not exist. We only have: RED, YELLOW, GREEN, BLUE OR PURPLE";
