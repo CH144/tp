@@ -32,17 +32,13 @@ import seedu.address.model.tag.Tag;
 public class CertEditCommand extends Command {
     public static final String COMMAND_WORD = "cert-edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a certificate in "
-            + "a person's portfolio in the address book. "
-            + "Parameters: "
-            + "INDEX "
-            + PREFIX_CERT_NAME + "NAME "
-            + PREFIX_CERT_EDIT_NAME + "NEW_NAME [OPTIONAL] "
-            + PREFIX_CERT_EDIT_DATE + "NEW_EXPIRY_DATE [OPTIONAL] "
-            + "Example: " + COMMAND_WORD + " "
-            + "2 "
-            + PREFIX_CERT_NAME + "Social Media Marketing "
-            + PREFIX_CERT_EDIT_DATE + "2028-03-05";
+    public static final String MESSAGE_USAGE = String.format(
+            "%s : edits a certificate of an existing contact according to the currently displayed list\n\n"
+            + "Format : %s INDEX %sTARGET_CERT_NAME [%sNEW_CERT_NAME] [%sNEW_EXPIRY_DATE]\n"
+            + "Example : %s 2 %sSocial Media Marketing %s2028-03-05",
+            COMMAND_WORD,
+            COMMAND_WORD, PREFIX_CERT_NAME, PREFIX_CERT_EDIT_NAME, PREFIX_CERT_EDIT_DATE,
+            COMMAND_WORD, PREFIX_CERT_NAME, PREFIX_CERT_EDIT_DATE);
 
     public static final String MESSAGE_SUCCESS = "Certificate edited: %1$s";
     public static final String MESSAGE_MISSING_CERT = "This person does not have this certificate.";
