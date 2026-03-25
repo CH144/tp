@@ -34,6 +34,10 @@ public class CertExpiry {
         }
     }
 
+    public boolean isBefore(CertExpiry otherCertExpiry) {
+        return expiryDate.isBefore(otherCertExpiry.expiryDate);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {

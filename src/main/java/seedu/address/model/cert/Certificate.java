@@ -57,6 +57,10 @@ public class Certificate {
         return StringUtil.containsWordIgnoreCase(name.certificateName, otherCertificate.name.certificateName);
     }
 
+    public boolean isExpiredBefore(CertExpiry otherExpiry) {
+        return expiry.isBefore(otherExpiry);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

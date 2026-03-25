@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CERT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CERT_EXPIRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -15,8 +16,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cert.CertExpiry;
 import seedu.address.model.cert.CertName;
 import seedu.address.model.cert.Certificate;
+import seedu.address.model.person.CertContainsDatePredicate;
 import seedu.address.model.person.CertContainsKeywordsPredicate;
 import seedu.address.model.person.CombinedPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -37,11 +40,13 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         List<Predicate<Person>> predicates = new ArrayList<>();
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG, PREFIX_CERT);
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TAG, PREFIX_CERT)
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TAG, PREFIX_CERT, PREFIX_CERT_EXPIRY);
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TAG, PREFIX_CERT, PREFIX_CERT_EXPIRY)
                 || !argMultimap.getPreamble().trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CERT_EXPIRY);
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             predicates.add(getNamePredicate(argMultimap));
@@ -55,6 +60,11 @@ public class FindCommandParser implements Parser<FindCommand> {
             predicates.add(getCertPredicate(argMultimap));
         }
 
+        if (argMultimap.getValue(PREFIX_CERT_EXPIRY).isPresent()) {
+            predicates.add(getCertExpPredicate(argMultimap));
+        }
+
+        assert predicates != null;
         return new FindCommand(new CombinedPredicate(predicates));
     }
 
@@ -81,13 +91,15 @@ public class FindCommandParser implements Parser<FindCommand> {
 
     private CertContainsKeywordsPredicate getCertPredicate(ArgumentMultimap argMultimap) {
         List<Certificate> certsList = argMultimap.getAllValues(PREFIX_CERT)
-            .stream()
-            .map(name -> name.trim())
-            .filter(name -> !name.isEmpty())
-            .map(name -> new Certificate(new CertName(name)))
-            .collect(Collectors.toList());
+            .stream().map(name -> name.trim()).filter(name -> !name.isEmpty())
+            .map(name -> new Certificate(new CertName(name))).collect(Collectors.toList());
         ArrayList<Certificate> certs = new ArrayList<>(certsList);
         return new CertContainsKeywordsPredicate(certs);
+    }
+
+    private CertContainsDatePredicate getCertExpPredicate(ArgumentMultimap argMultimap) throws ParseException {
+        CertExpiry expiry = ParserUtil.parseCertExpiry(argMultimap.getValue(PREFIX_CERT_EXPIRY).get());
+        return new CertContainsDatePredicate(expiry);
     }
 
     private Set<Tag> parseAndGroupTags(String tagEntry) {

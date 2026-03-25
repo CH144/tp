@@ -8,7 +8,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.cert.Certificate;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s list of {@code Certificate}s matches any of the keywords given.
  */
 public class CertContainsKeywordsPredicate implements Predicate<Person> {
     private final ArrayList<Certificate> certKeywords;
