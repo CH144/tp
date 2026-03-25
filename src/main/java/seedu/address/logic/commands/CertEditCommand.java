@@ -32,20 +32,18 @@ import seedu.address.model.tag.Tag;
 public class CertEditCommand extends Command {
     public static final String COMMAND_WORD = "cert-edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a certificate in "
-            + "a person's portfolio in the address book. "
-            + "Parameters: "
-            + "INDEX "
-            + PREFIX_CERT_NAME + "NAME "
-            + PREFIX_CERT_EDIT_NAME + "NEW_NAME [OPTIONAL] "
-            + PREFIX_CERT_EDIT_DATE + "NEW_EXPIRY_DATE [OPTIONAL] "
-            + "Example: " + COMMAND_WORD + " "
-            + "2 "
-            + PREFIX_CERT_NAME + "Social Media Marketing "
-            + PREFIX_CERT_EDIT_DATE + "2028-03-05";
+    public static final String MESSAGE_USAGE = String.format(
+            "%s : edits a certificate of an existing contact according to the currently displayed list\n\n"
+            + "Format : %s INDEX %sTARGET_CERT_NAME [%sNEW_CERT_NAME] [%sNEW_EXPIRY_DATE]\n"
+            + "Example : %s 2 %sSocial Media Marketing %s2028-03-05",
+            COMMAND_WORD,
+            COMMAND_WORD, PREFIX_CERT_NAME, PREFIX_CERT_EDIT_NAME, PREFIX_CERT_EDIT_DATE,
+            COMMAND_WORD, PREFIX_CERT_NAME, PREFIX_CERT_EDIT_DATE);
 
     public static final String MESSAGE_SUCCESS = "Certificate edited: %1$s";
     public static final String MESSAGE_MISSING_CERT = "This person does not have this certificate.";
+    public static final String MESSAGE_DUPLICATE_CERT = "This person already has this certificate.";
+
 
     private final Index index;
     private final Certificate toEdit;
@@ -78,7 +76,15 @@ public class CertEditCommand extends Command {
             throw new CommandException(MESSAGE_MISSING_CERT);
         }
 
-        Certificate updatedCert = this.getUpdatedCert();
+        // get the actual certificate-to-edit
+        Certificate actualToEdit = personToEdit.getCertificates()
+                .get(personToEdit.getCertIndex(toEdit));
+
+        Certificate updatedCert = this.getUpdatedCert(actualToEdit);
+
+        if (newName.isPresent() && personToEdit.hasCert(updatedCert)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CERT);
+        }
 
         Person personEdited = editCertForPerson(personToEdit, toEdit, updatedCert);
 
@@ -92,10 +98,9 @@ public class CertEditCommand extends Command {
      * If new values are not supplied, the old values will be reused.
      * @return Certificate with the edited information.
      */
-    private Certificate getUpdatedCert() {
-        CertName updatedName = this.newName.orElse(this.toEdit.getName());
-        CertExpiry updatedExpiry = this.newDate.orElse(this.toEdit.getExpiry());
-
+    private Certificate getUpdatedCert(Certificate actualToEdit) {
+        CertName updatedName = this.newName.orElse(actualToEdit.getName());
+        CertExpiry updatedExpiry = this.newDate.orElse(actualToEdit.getExpiry());
         Certificate updatedCert = new Certificate(updatedName, updatedExpiry);
         return updatedCert;
     }

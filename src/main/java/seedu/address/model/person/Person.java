@@ -4,13 +4,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.cert.Certificate;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagNameComparator;
 
 /**
  * Represents a Person in the address book.
@@ -25,7 +26,7 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags;
     private final Salary salary;
     private ArrayList<Certificate> certs;
 
@@ -38,8 +39,23 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        this.tags = tags;
         this.salary = salary;
+        this.certs = new ArrayList<Certificate>();
+    }
+
+    /**
+     * Minimalist constructor: Only Name is strictly required.
+     * All other fields are initialized as empty.
+     */
+    public Person(Name name) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.phone = new Phone("");
+        this.email = new Email("");
+        this.address = new Address("");
+        this.tags = Set.of();
+        this.salary = new Salary("");
         this.certs = new ArrayList<Certificate>();
     }
 
@@ -48,7 +64,7 @@ public class Person {
      * Chains to the main constructor with an empty HashSet.
      */
     public Person(Name name, Phone phone, Email email, Address address, Salary salary) {
-        this(name, phone, email, address, new HashSet<>(), salary);
+        this(name, phone, email, address, new TreeSet<>(new TagNameComparator()), salary);
     }
 
     /**
@@ -62,7 +78,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        this.tags = tags;
         this.salary = salary;
         this.certs = certs;
     }

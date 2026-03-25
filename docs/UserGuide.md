@@ -126,7 +126,6 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY`
 > * contain only alphanumeric characters and hyphens
 > * start and end only with alphanumeric characters
 > * be at least 2 characters long for the last domain label<br>
->
 > Duplicate-handling: exact match<br>
 
 > [**ADDRESS**]<br>
@@ -150,6 +149,7 @@ Examples:
 * `add n/John Doe p/+65 98765432 e/johnd@example.com a/John street, block 123, #01-01 s/`
 * `add n/Betsy Crowe s/ e/betsycrowe@example.com a/Newgate Prison p/+81 1234567`
 
+<br>
 
 ### Editing an existing contact : `edit`
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
@@ -162,6 +162,8 @@ Examples:
 *  `edit 1 p/+017 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `+017 91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower` Edits the name of the 2nd person to be `Betsy Crower`.
 
+<br>
+
 ### Deleting an existing contact : `delete`
 Format: `delete INDEX`
 
@@ -171,38 +173,45 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find n/Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Locating contacts by name: `find`
+<br>
 
-Finds persons whose names contain any of the given keywords.
+### Searching contacts by criteria: `find`
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds persons based on the given criteria.
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Format: `find [n/NAME] [t/TAG] [c/CERT_NAME] [e/CERT_EXPIRY_DATE]`
+
+* At least one of the optional fields must be provided to search with
+* The search is case-insensitive
+* Partial words will be matched
+* Multiple values of the same field can be used to expand the search (i.e. `OR` search),
+except for `CERT_EXPIRY`.
+* Multiple fields can be used to narrow down the search (i.e `AND` search)
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find n/Alex Y n/David` returns all persons whose name contains `Alex Y` or `David`
+* `find c/OSCP` returns all persons with certificate names containing `OSCP`
+* `find n/Alex t/IT e/2027-03-15` returns all persons whose name contains `Alex`, with tags that contain `IT` and with certificates that expire **before** 15th March 2027.
+
+<br>
 
 ### Listing all contacts : `list`
 Format: `list`
 
+<br>
+
 ### Adding and deleting tags of a contact: `tag`
-Format: `tag INDEX [a/TAGS TO ADD SEPARATED BY SPACE] [d/TAGS TO DELETE SEPARATED BY SPACE]`
+Format: `tag INDEX [a/TAGS TO ADD SEPARATED BY SPACE] [c/COLOUR OF TAGS TO BE ADDED] [d/TAGS TO DELETE SEPARATED BY SPACE]`
 
 * Add or delete tags of the person at the specified `INDEX` of the the displayed person list.
 * If multiple tags are to be added or deleted, they are to be separated by spaces.
-* **At least one of the optional fields must be provided.**
+* There are 5 colour options for Tags: `RED`, `YELLOW`, `GREEN`, `BLUE`, `PURPLE`, the default colour is `BLUE`
+* **At least one of the `a/` or `d/` fields must be provided.** There is no need to have `c/` when only deleting tags 
 
 Examples:
-* `tag 1 a/IT Intern` adds two Tags `IT` and `Intern`
+* `tag 1 a/IT Intern c/red` adds two Tags `IT` and `Intern` with a **RED** Colouration
 * `tag 1 d/Best_Employee` deletes a Tag `Best_Employee`
-* `tag 1 a/HR Best_Employee d/ IT` adds two Tags `HR` and `Best_Employee`, while deleting `IT`
+* `tag 1 a/HR Best_Employee d/IT` adds two Tags `HR` and `Best_Employee`, while deleting `IT`
 
 <box type="info" seamless>
 
@@ -212,6 +221,8 @@ Examples:
 (2) At most 30 characters long<br>
 Duplicate-handling: exact match
 </box>
+
+<br>
 
 ### Adding certificates : `cert-add`
 
@@ -231,6 +242,8 @@ Examples:
 > - Certificate names are limited to alphanumeric characters only.
 > - Multiple instances of Certificates with the same name will be considered duplicates, even if the expiry dates are different.
 
+<br>
+
 ### Deleting certificates : `cert-del`
 
 Deletes a Certificate from a person in the address book.
@@ -243,6 +256,8 @@ Format `cert-del INDEX [n/CERT_NAME]`
 
 Examples:
 * `cert-del 1 n/OSCP` deletes the OSCP certificate from the first person in the displayed person list.
+
+<br>
 
 ### Editing certificates: `cert-edit`
 
@@ -257,14 +272,20 @@ Format: `cert-edit INDEX [n/CERT_NAME] [ne/NEW_CERT_NAME] [ee/NEW_CERT_EXPIRY_DA
 Examples:
 * `cert-edit 1 n/OSCP ne/OSCP2` will edit the certificate originally named 'OSCP' held by the first person in the list, updating its name to 'OSCP2'.
 
+<br>
+
 ### Clearing all entries : `clear`
 Format: `clear`
+
+<br>
 
 ### Exiting the program : `exit`
 Format: `exit`
 
+<br>
+
 ### Saving the data
-Big Brother data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Big Brother data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 Big Brother data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
@@ -303,9 +324,9 @@ Furthermore, certain edits can cause the Big Brother to behave in unexpected way
 `cert-add INDEX n/CERT_NAME e/CERT_EXPIRY`
 `cert-edit INDEX n/NAME [ne/EDITED_NAME] [ee/EDITED_EXPIRY]`
 `cert-del INDEX n/CERT_NAME`
-`tag INDEX [a/TAGS TO ADD SEPARATED BY SPACE] [d/TAGS TO DELETE SEPARATED BY SPACE]`
+`tag INDEX [a/TAGS TO ADD SEPARATED BY SPACE] [c/COLOUR OF TAGS TO BE ADDED] [d/TAGS TO DELETE SEPARATED BY SPACE]`
 `sort ...`
-`find ...`
+`find [n/NAME] [t/TAG] [c/CERT_NAME] [e/CERT_EXPIRY_DATE]`
 `list`
 `exit`
 `help`
