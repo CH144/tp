@@ -25,15 +25,13 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = String.format(
             "%s : adds a new contact\n\n"
-            + "Format : %s %sNAME %sPHONE %sEMAIL %sADDRESS %sSALARY\n"
+            + "Format : %s %sNAME [%sPHONE] [%sEMAIL] [%sADDRESS] [%sSALARY]\n"
             + "Example : %s "
                     + "%sJohn Doe "
                     + "%s+65 81234567 "
                     + "%sj.doe@xyz.co "
                     + "%s123D Pine Road, #12-345, Singapore 123456 "
-                    + "%s5000\n\n"
-            + "Phone, email, address and salary can be blank, "
-            + "but the prefixes (%s %s %s %s) must still be entered.",
+                    + "%s5000",
             COMMAND_WORD,
             COMMAND_WORD, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_SALARY,
             COMMAND_WORD, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_SALARY,
