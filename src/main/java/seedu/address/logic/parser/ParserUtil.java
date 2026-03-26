@@ -196,4 +196,15 @@ public class ParserUtil {
         }
         return new CertExpiry(LocalDate.parse(trimmedDate));
     }
+
+    /**
+     * Trims leading/trailing whitespace and reduces internal whitespace
+     * to a single space.
+     */
+    private static String normaliseWhiteSpace(String s) {
+        if (s == null) {
+            return null;
+        }
+        return s.trim().replaceAll("\\s+", " ");
+    }
 }
