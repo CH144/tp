@@ -6,7 +6,7 @@
 
 # Big Brother User Guide
 
-Big Brother is a desktop app for managing employee contacts, optimized for use via a Command Line Interface (CLI) while displaying the contacts efficiently via a Graphical User Interface (GUI).
+Big Brother is a desktop app for managing employee contacts, optimized for use via typing in a Command Line Interface (CLI) while displaying the contacts efficiently via a Graphical User Interface (GUI).
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -24,9 +24,9 @@ Big Brother is a desktop app for managing employee contacts, optimized for use v
 1. Copy the file to the folder you want to use as the _home folder_ for Big Brother.
 
 1. Open a command terminal (you can search for it in the start menu) and change the working folder to the one you put the app in. All operating systems support this with the `cd` command:<br>
-   **Windows** `cd C:\Users\john\big_brother_home_folder`<br>
-   **Linux** `cd /home/john/big_brother_home_folder`<br>
-   **Mac** `cd /Users/john/big_brother_home_folder`<br>
+   **Windows** `cd C:\Users\your_username\big_brother_home_folder`<br>
+   **Linux** `cd /home/your_username/big_brother_home_folder`<br>
+   **Mac** `cd /Users/your_username/big_brother_home_folder`<br>
 
 1. Run the `java -jar bigbrother.jar` command to start the app.<br>
    Note the app name may be slightly different due to versions.<br>
@@ -94,10 +94,9 @@ Format: `help`
 
 > You can automatically close the popups with Enter on Windows and Linux, or Spacebar on Mac.<br>
 
-> If you need more help with a command marked by a `*`, enter it with no arguments.
+> If you need more help with a command marked by a `*`, enter it with no arguments into the command box.
+> Example: to get more help for `add`, enter `add` into the command box.
 </box>
-
-![add usage message](images/addUsageMessage.png)
 
 ### Adding a new contact : `add`
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY`
@@ -154,7 +153,7 @@ Examples:
 ### Editing an existing contact : `edit`
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
 
-* Edits the person at the specified `INDEX` of the the displayed person list.
+* Edits the person at the specified `INDEX` of the displayed person list.
 * **At least one of the optional fields must be provided.**
 * Existing values will be updated to the input values.
 
@@ -167,7 +166,7 @@ Examples:
 ### Deleting an existing contact : `delete`
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX` of the the displayed person list.
+* Deletes the person at the specified `INDEX` of the displayed person list.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
@@ -203,7 +202,7 @@ Format: `list`
 ### Adding and deleting tags of a contact: `tag`
 Format: `tag INDEX [a/TAGS TO ADD SEPARATED BY SPACE] [c/COLOUR OF TAGS TO BE ADDED] [d/TAGS TO DELETE SEPARATED BY SPACE]`
 
-* Add or delete tags of the person at the specified `INDEX` of the the displayed person list.
+* Add or delete tags of the person at the specified `INDEX` of the displayed person list.
 * If multiple tags are to be added or deleted, they are to be separated by spaces.
 * There are 5 colour options for Tags: `RED`, `YELLOW`, `GREEN`, `BLUE`, `PURPLE`, the default colour is `BLUE`
 * **At least one of the `a/` or `d/` fields must be provided.** There is no need to have `c/` when only deleting tags 
