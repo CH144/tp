@@ -31,7 +31,8 @@ public class ParserUtil {
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
@@ -45,7 +46,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String name} into a {@code Name}.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -60,7 +62,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String phone} into a {@code Phone}.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
@@ -75,7 +78,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String address} into an {@code Address}.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
@@ -90,7 +94,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String email} into an {@code Email}.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
@@ -105,7 +110,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String salary} into an {@code Salary}.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the given {@code salary} is invalid.
      */
@@ -120,7 +126,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
@@ -170,7 +177,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String name} into a {@code CertName}.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -185,7 +193,8 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String date} into a {@code CertExpiry}.
-     * Leading, trailing and extra internal whitespaces will be trimmed.
+     * Leading and trailing whitespaces will be trimmed.
+     * Extra internal whitespaces will be reduced to one.
      *
      * @throws ParseException if the given {@code date} is invalid.
      */

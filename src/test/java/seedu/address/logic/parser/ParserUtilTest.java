@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -221,6 +222,26 @@ public class ParserUtilTest {
 
         // Negative salary
         assertThrows(ParseException.class, () -> ParserUtil.parseSalary("-100"));
+    }
+
+    @Test
+    public void parseCertName_invalidValue_throwsParseException() {
+        String invalidCertName = "OSCP@2026";
+        assertThrows(ParseException.class, () -> ParserUtil.parseCertName(invalidCertName));
+    }
+
+    @Test
+    public void parseCertExpiry_invalidValue_throwsParseException() {
+        String invalidDate = "2026-13-45";
+        assertThrows(ParseException.class, () -> ParserUtil.parseCertExpiry(invalidDate));
+    }
+
+    @Test
+    public void normaliseWhiteSpace_nullInput_returnsNull() throws Exception {
+        java.lang.reflect.Method method = ParserUtil.class.getDeclaredMethod("normaliseWhiteSpace", String.class);
+        method.setAccessible(true);
+        Object result = method.invoke(null, (String) null);
+        assertNull(result);
     }
 
     @Test
