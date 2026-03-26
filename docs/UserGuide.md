@@ -30,7 +30,8 @@ Big Brother is a desktop app for managing employee contacts, optimized for use v
 
 1. Run the `java -jar bigbrother.jar` command to start the app.<br>
    Note the app name may be slightly different due to versions.<br>
-   A GUI similar to the below should appear in a few seconds.<br><br>
+   A GUI similar to the below should appear in a few seconds.<br>
+
    ![Ui](images/Ui.png)
 
 1. Type a command in the command box (the red-brown rectangle at the top) and press Enter to execute it.<br>
@@ -86,51 +87,62 @@ Format: `help`
 
 ### Adding a new contact : `add`
 Format: `add n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
+* all four of the optional fields may be omitted
 
-Examples:
-* `add n/John Doe p/+65 98765432 e/johnd@example.com`
-* `add n/Betsy Crowe p/+81 1234567 s/4500`
+Example: `add n/John Doe p/+65 98765432 e/johnd@example.com a/Abc Rd, Blk 123, #01-01 s/3000`
+
+Expected result (starting with the existing sample data):
+
+![add success](images/addSuccess.png)
+
+<box type="tip" seamless>
+
+**Tip on navigation**
+
+As the app automatically resets the scroll bar to the top after the command, you will need to scroll down to see the newly added entry.
+</box>
 
 <box type="info" seamless>
 
 **Validation & Duplicate-handling Rules**
-> [**NAME**]<br>
-> (1) **Cannot be empty**<br>
+> **NAME**<br>
+> (1) *Cannot be empty*<br>
 > (2) Only letter, spaces, forward slash<br>
-> (3) Letters immediately beside forward slash must be uppercase<br>
-> Duplicate-handling: case-insensitive comparison<br>
+> (3) Letters immediately beside forward slash must be uppercase (eg: 'S/O')<br>
+> Duplicate-handling: case-*insensitive* match<br>
 
-> [**PHONE_NUMBER**]<br>
+> **PHONE**<br>
 > (1) Can be empty<br>
 > (2) `+` followed by COUNTRY_CODE followed by space followed by 3 to 15 digits phone number<br>
-> Duplicate-handling: all digits match exactly<br>
+> Duplicate-handling: all digits match<br>
 
-> [**EMAIL**]<br>
+> **EMAIL**<br>
 > (1) Can be empty<br>
 > (2) Emails should be of the format 'local-part@domain', where 'local-part' should:<br>
 > * contain only alphanumeric characters and `+_.-`<br>
 > * not start or end with `+_.-`<br>
+>
 > (3) and 'domain' is made of domain labels where each should:<br>
 > * be separated by `.`
 > * contain only alphanumeric characters and hyphens
 > * start and end only with alphanumeric characters
 > * be at least 2 characters long for the last domain label<br>
-> Duplicate-handling: exact match<br>
+> Duplicate-handling: case-sensitive match<br>
 
-> [**ADDRESS**]<br>
+> **ADDRESS**<br>
 > (1) Can be empty<br>
 > (2) Only alphanumeric characters and `#,-`<br>
 > (3) At most 100 characters long<br>
-> Duplicate-handling: exact match<br>
+> Duplicate-handling: case-sensitive match<br>
 
-> [**SALARY**]<br>
+> **SALARY**<br>
 > (1) Can be empty<br>
 > (2) Only digits<br>
-> Duplicate-handling: exact match<br>
+> Duplicate-handling: all digits match<br>
 
-> [**PERSON duplicate handling**]<br>
-> (1) EMAIL and PHONE_NUMBER are empty: duplicates if NAMEs are the same<br>
-> (2) Else, 2 persons are duplicates if their NAME & PHONE_NUMBER & EMAIL are the same<br>
+> **PERSON duplicate handling**<br>
+> (1) If two people have empty EMAIL and PHONE, they are duplicates if their NAME are the same<br>
+> (2) Otherwise, they are duplicates if their PHONE, EMAIL and NAME are all the same<br>
 </box>
 
 <br>
