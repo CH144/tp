@@ -154,8 +154,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
 * **At least one of the optional fields must be provided.**
 * Existing values will be updated to the input values.
 
-Example:
-*  `edit 1 p/+017 91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `+017 91234567` and `johndoe@example.com` respectively.
+Example: `edit 1 p/+017 91234567 e/johndoe@example.com`
+
+* Edits the phone to `+017 91234567` and the email to `johndoe@example.com` for the first person.
 
 <br>
 
@@ -165,8 +166,8 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX` of the displayed person list.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find n/Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the second person in the results of the `list` command.
+* `find n/John` followed by `delete 1` deletes the first person in the results of the `find` command.
 
 <br>
 
