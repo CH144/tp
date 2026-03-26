@@ -30,12 +30,13 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
-        String trimmedIndex = oneBasedIndex.trim();
+        String trimmedIndex = normaliseWhiteSpace(oneBasedIndex);
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -44,13 +45,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = normaliseWhiteSpace(name);
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
@@ -59,13 +60,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
-        String trimmedPhone = phone.trim();
+        String trimmedPhone = normaliseWhiteSpace(phone);
         if (!Phone.isValidPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
@@ -74,13 +75,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
-        String trimmedAddress = address.trim();
+        String trimmedAddress = normaliseWhiteSpace(address);
         if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
@@ -89,13 +90,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
     public static Email parseEmail(String email) throws ParseException {
         requireNonNull(email);
-        String trimmedEmail = email.trim();
+        String trimmedEmail = normaliseWhiteSpace(email);
         if (!Email.isValidEmail(trimmedEmail)) {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
@@ -104,13 +105,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String salary} into an {@code Salary}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code salary} is invalid.
      */
     public static Salary parseSalary(String salary) throws ParseException {
         requireNonNull(salary);
-        String trimmedSalary = salary.trim();
+        String trimmedSalary = normaliseWhiteSpace(salary);
         if (!Salary.isValidSalary(trimmedSalary)) {
             throw new ParseException(Salary.MESSAGE_CONSTRAINTS);
         }
@@ -119,13 +120,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
     public static Tag parseTag(String tag, TagColour tagColour) throws ParseException {
         requireNonNull(tag);
-        String trimmedTag = tag.trim();
+        String trimmedTag = normaliseWhiteSpace(tag);
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
@@ -169,13 +170,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String name} into a {@code CertName}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
     public static CertName parseCertName(String name) throws ParseException {
         requireNonNull(name);
-        String trimmedName = name.trim();
+        String trimmedName = normaliseWhiteSpace(name);
         if (!CertName.isValidCertName(trimmedName)) {
             throw new ParseException(CertName.MESSAGE_CONSTRAINTS);
         }
@@ -184,13 +185,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String date} into a {@code CertExpiry}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Leading, trailing and extra internal whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code date} is invalid.
      */
     public static CertExpiry parseCertExpiry(String date) throws ParseException {
         requireNonNull(date);
-        String trimmedDate = date.trim();
+        String trimmedDate = normaliseWhiteSpace(date);
         if (!CertExpiry.isValidCertExpiry(trimmedDate)) {
             throw new ParseException(CertExpiry.MESSAGE_CONSTRAINTS);
         }
