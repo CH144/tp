@@ -113,7 +113,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY`
 
 > [**PHONE_NUMBER**]<br>
 > (1) Can be empty<br>
-> (2) `+` followed by COUNTRY_CODE followed by space followed by 3 to 15 digits phone number<br>
+> (2) `+` then immediately followed by COUNTRY_CODE followed by space followed by 3 to 15 digits phone number<br>
 > Duplicate-handling: all digits match exactly<br>
 
 > [**EMAIL**]<br>
@@ -121,9 +121,11 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY`
 > (2) Emails should be of the format 'local-part@domain', where 'local-part' should:<br>
 > * contain only alphanumeric characters and `+_.-`<br>
 > * not start or end with `+_.-`<br>
+> * not contain consecutive `+_.-`<br>
 > (3) and 'domain' is made of domain labels where each should:<br>
 > * be separated by `.`
 > * contain only alphanumeric characters and hyphens
+> * not contain consecutive hyphens
 > * start and end only with alphanumeric characters
 > * be at least 2 characters long for the last domain label<br>
 > Duplicate-handling: exact match<br>
