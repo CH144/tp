@@ -177,6 +177,7 @@ Format: `find [n/NAME] [t/TAG] [c/CERT_NAME] [e/CERT_EXPIRY_DATE]`
   * e.g. 'john' will match 'Johny'
 * For `CERT_EXPIRY_DATE`, the match is for certificates that expire **before** the provided date.
 * A field can be used more than once to expand the search (i.e. `OR` search), except for `CERT_EXPIRY` (see Ex 1).
+  * Use repeated fields, not spaces, for `OR` (i.e. `find t/HR t/IT` and not `find t/HR IT`)
 * Multiple fields can be used to narrow down the search (i.e `AND` search) (see Ex 3).
 
 Examples:
