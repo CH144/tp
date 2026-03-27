@@ -215,6 +215,10 @@ public class ParserUtil {
         if (s == null) {
             return null;
         }
-        return s.trim().replaceAll("\\s+", " ");
+        //standardize internal whitespace to single spaces
+        String basicNormalized = s.trim().replaceAll("\\s+", " ");
+
+        //remove spaces around forward slashes (eg "S / O" -> "S/O")
+        return basicNormalized.replaceAll("\\s*/\\s*", "/");
     }
 }

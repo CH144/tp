@@ -14,13 +14,11 @@ public class Name implements Comparable<Name> {
             + "Letters immediately beside a forward slash must be uppercase. (eg S/O)";
 
     /*
-     * (1) Only alphabetical characters, single spaces, and forward slashes.
+     * (1) Only alphabetical characters, spaces, and forward slashes.
      * (2) Cannot be blank.
      * (3) Letters immediately beside a forward slash must be uppercase.
-     * This regex ensures the first and last characters are not spaces,
-     * and only single spaces are allowed between characters.
      */
-    public static final String VALIDATION_REGEX = "^[a-zA-Z]+(([ ]|[A-Z]/[A-Z])[a-zA-Z]*)*$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z ]*([A-Z]/[A-Z]|[a-zA-Z ])[a-zA-Z ]*$";
 
     public final String fullName;
 
