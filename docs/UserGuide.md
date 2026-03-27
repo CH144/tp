@@ -264,7 +264,7 @@ Big Brother data is saved automatically as a JSON file `[JAR file location]/data
 
 **Caution:**
 
-If your changes to the data file makes its format invalid, Big Brother will discard all data and start with an empty data file at the next run.  Hence, it is **recommended to make a manual backup of the file before editing it**.
+If your changes to the data file makes its format invalid, Big Brother will discard all data and start with an empty data file at the next run.  Hence, it is **recommended to make a manual backup of the file before editing it**. Support for the prevention of data loss in the event of corrupted or wrongly-formatted data is planned to be added in a future update.
 
 Furthermore, certain edits can cause the Big Brother to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
@@ -288,15 +288,15 @@ Furthermore, certain edits can cause the Big Brother to behave in unexpected way
 ## Command summary
 |Format|
 |------|
-`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SALARY`
+`add n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [s/SALARY]`
 `delete INDEX`
 `clear`
 `undo`
-`cert-add INDEX n/CERT_NAME e/CERT_EXPIRY`
-`cert-edit INDEX n/NAME [ne/EDITED_NAME] [ee/EDITED_EXPIRY]`
+`cert-add INDEX n/CERT_NAME e/CERT_EXPIRY_DATE`
+`cert-edit INDEX n/CERT_NAME [ne/NEW_CERT_NAME] [ee/NEW_CERT_EXPIRY_CERT]`
 `cert-del INDEX n/CERT_NAME`
-`tag INDEX [a/TAGS TO ADD SEPARATED BY SPACE] [c/COLOUR OF TAGS TO BE ADDED] [d/TAGS TO DELETE SEPARATED BY SPACE]`
+`tag INDEX [a/TAGS_TO_ADD] [c/COLOUR_FOR_TAGS_TO_ADD] [d/TAGS_TO_DELETE]`
 `sort ...`
 `find [n/NAME] [t/TAG] [c/CERT_NAME] [e/CERT_EXPIRY_DATE]`
 `list`
