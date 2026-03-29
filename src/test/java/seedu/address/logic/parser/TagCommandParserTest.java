@@ -1,12 +1,13 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.*;
+import static seedu.address.logic.Messages.MESSAGE_AT_LEAST_ONE_FIELD;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_FIELD_COMBI;
 import static seedu.address.logic.commands.CommandTestUtil.MULTI_TAG_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MULTI_TAG_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.TagCommandParser.MESSAGE_USELESS_COLOUR;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -38,7 +39,8 @@ public class TagCommandParserTest {
                 + TagCommand.MESSAGE_USAGE);
 
         // no field specified
-        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_AT_LEAST_ONE_FIELD + "a/ d/"));
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_AT_LEAST_ONE_FIELD + "a/ d/"));
 
         // no index and no field specified
         assertParseFailure(parser, "", ParserUtil.MESSAGE_INVALID_INDEX + "\n\n"

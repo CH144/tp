@@ -17,7 +17,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.cert.Certificate;
 import seedu.address.model.person.Address;
@@ -36,7 +35,6 @@ import seedu.address.model.tag.TagNameComparator;
 public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
-    private static final int MAX_NON_UPDATED_TAG_TO_DISPLAY = 8;
     public static final String MESSAGE_USAGE = String.format(
             "%s : adds or deletes tags from an existing contact according to the currently displayed list\n\n"
             + "Format : %s INDEX [%sTAGS_TO_ADD] [%sCOLOUR OF ADDED TAGS] [%sTAGS_TO_DELETE] \n"
@@ -52,6 +50,7 @@ public class TagCommand extends Command {
             + "not added.\n Note: If you are trying to recolour tags, delete them first, then add them back";
 
     public static final String MESSAGE_NO_TAGS_TO_DELETE = "No tags were deleted (there were no matching tags)";
+
     private final Index targetIndex;
     private final Set<Tag> tagsToUpdate;
     private final boolean isAdd;

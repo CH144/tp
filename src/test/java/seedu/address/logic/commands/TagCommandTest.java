@@ -185,7 +185,7 @@ public class TagCommandTest {
     @Test
     public void equals() {
         Set<Tag> toUpdate = Set.of(new Tag(VALID_TAG_FRIEND));
-        Set<Tag> toUpdate_alt = Set.of(new Tag(VALID_TAG_HUSBAND));
+        Set<Tag> toUpdateAlt = Set.of(new Tag(VALID_TAG_HUSBAND));
 
         final TagCommand standardCommand = new TagCommand(INDEX_FIRST_PERSON, toUpdate, true);
 
@@ -211,7 +211,7 @@ public class TagCommandTest {
         assertFalse(standardCommand.equals(new TagCommand(INDEX_SECOND_PERSON, Set.of(), true)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new TagCommand(INDEX_FIRST_PERSON, toUpdate_alt, true)));
+        assertFalse(standardCommand.equals(new TagCommand(INDEX_FIRST_PERSON, toUpdateAlt, true)));
         assertFalse(standardCommand.equals(new TagCommand(INDEX_FIRST_PERSON, toUpdate, false)));
 
         TreeSet<Tag> moreTags = new TreeSet<>(new TagNameComparator());
