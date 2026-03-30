@@ -174,9 +174,7 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find n/Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command, if present.
-
 <br>
-
 ### Searching contacts by criteria : `find`
 Format: `find [n/NAME] [t/TAG] [c/CERT_NAME] [e/CERT_EXPIRY_DATE]`
 
@@ -223,11 +221,6 @@ Examples:
 
 
 ### Adding certificates : `cert-add`
-Format `cert-add INDEX n/CERT_NAME e/CERT_EXPIRY_DATE`
-* Adds a certificate to the person at the specified `INDEX` of the displayed person list.
-
-Adds a Certificate to a person in the address book.
-
 Format `cert-add INDEX [n/CERT_NAME] [e/CERT_EXPIRY_DATE]`
 * Adds a Certificate to a person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -259,7 +252,7 @@ Format `cert-del INDEX [n/CERT_NAME]`
 
 Example: `cert-del 1 n/OSCP`
 * Deletes the certificate named OSCP from the first person in the list.
-
+<br>
 ### Editing certificates : `cert-edit`
 Format: `cert-edit INDEX n/CERT_NAME [ne/NEW_CERT_NAME] [ee/NEW_CERT_EXPIRY_DATE]`
 
@@ -271,15 +264,12 @@ Format: `cert-edit INDEX n/CERT_NAME [ne/NEW_CERT_NAME] [ee/NEW_CERT_EXPIRY_DATE
 
 Example: `cert-edit 1 n/OSCP ne/OSCP2`
 * Edits the certificate originally named 'OSCP' held by the first person in the list, updating its name to 'OSCP2'.
-
-Format: `cert-edit INDEX [n/CERT_NAME] [ne/NEW_CERT_NAME] [ee/NEW_CERT_EXPIRY_DATE]`
-* Edits a Certificate that a person at the specified `INDEX` holds.
-
+<br>
 
 ### Restoring the contact list : `undo`
 Format: `undo`
 
-* Undo-es the last used command.
+* Undos the last used command.
 
 <box type="warning" seamless>
 
