@@ -31,7 +31,7 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("+18 124293842033123038424")); // phone numbers more than 15 digits
         assertFalse(Phone.isValidPhone("+65 9 1")); // Spaces are okay, but only 2 digits total (min 3 for phone part)
         assertFalse(Phone.isValidPhone("+6512345")); // Missing the mandatory space after country code
-        assertFalse(Phone.isValidPhone("+ 65 12345")); // isValidPhone expects the space between + and 65 to be gone already
+        assertFalse(Phone.isValidPhone("+ 65 12345")); // ParserUtil has yet trim
 
         // valid phone numbers
         assertTrue(Phone.isValidPhone(null)); // null
