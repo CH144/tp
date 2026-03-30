@@ -110,6 +110,9 @@ Expected result (starting with the existing sample data):
 <box type="info" seamless>
 
 **Validation & Duplicate-handling Rules**
+
+> **General Rule:** Big Brother allows you to `add` contacts and `edit` existing contacts such that it will create duplicate persons. However, if a duplicate is detected, a **Warning pop-up** will appear. You can then choose to keep the duplicate or `delete` it later.
+
 > **NAME**<br>
 > (1) *Cannot be empty*<br>
 > (2) Only letter, spaces, forward slash<br>
