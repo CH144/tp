@@ -174,6 +174,12 @@ Format: `list`
 
 <br>
 
+### Sorting all contacts : `sort`
+Format: `sort`
+* Sorts currently displayed contact list in increasing alphabetical order.
+
+<br>
+
 ### Adding and deleting tags : `tag`
 Format: `tag INDEX [a/TAGS_TO_ADD] [c/COLOUR_OF_TAGS_TO_ADD] [d/TAGS_TO_DELETE]`
 
