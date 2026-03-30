@@ -60,6 +60,12 @@ Big Brother is a desktop app for Human Resources to manage employee contacts, op
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
+* Multiple prefixes must be separated by whitespaces.<br>
+  e.g. if the command specifies `n/NAME p/PHONE`, `n/NAMEp/PHONE` is not acceptable.
+
+* Prefix symbol and `/` **cannot** be separated by whitespaces.<br>
+  e.g. if the command specifies `n/NAME`, `n /NAME` is not acceptable.
+
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if you input `help 123`, it will interpreted as just `help`.
 
@@ -114,12 +120,14 @@ Expected result (starting with the existing sample data):
 > (1) **Cannot be empty**<br>
 > (2) Only letter, spaces, forward slash<br>
 > (3) Letters immediately beside forward slash must be uppercase (e.g. 'S/O')<br>
-> Duplicate-handling: case-*insensitive* match<br>
+> > **Utility**:<br> Leading, trailing and internal whitespaces for `/` will be trimmed (e.g. `  S   /  O` will be trimmed to `S/O`). Internal whitespaces between words will be trimmed to 1.<br><br>
+> > **Duplicate-handling**: case-*insensitive* comparison<br>
 
 > [**PHONE_NUMBER**]<br>
 > (1) Can be empty<br>
 > (2) `+` then immediately followed by COUNTRY_CODE followed by space followed by 3 to 15 digits phone number<br>
-> Duplicate-handling: all digits match exactly<br>
+> > **Utility**:<br> Leading and trailing whitespaces will be trimmed. Internal whitespaces between `+` and COUNTRY_CODE will be trimmed. Internal whitespaces in PHONE_NUMBER will be trimmed to 1.<br><br>
+> > **Duplicate-handling**: digits and spaces match exactly<br>
 
 > [**EMAIL**]<br>
 > (1) Can be empty<br>
@@ -133,20 +141,23 @@ Expected result (starting with the existing sample data):
 > * not contain consecutive hyphens
 > * start and end only with alphanumeric characters
 > * be at least 2 characters long for the last domain label<br>
-> Duplicate-handling: case-sensitive match<br>
+> > **Utility**: Leading, trailing and internal whitespaces will be trimmed.<br><br>
+> > **Duplicate-handling**: case-*sensitive* comparison<br>
 
 > [**ADDRESS**]<br>
 > (1) Can be empty<br>
 > (2) Only alphanumeric characters and `#,-`<br>
 > (3) At most 100 characters long<br>
-> Duplicate-handling: case-insensitive match<br>
+> > **Utility**:<br> Leading and trailing whitespaces will be trimmed. Internal whitespaces will be trimmed to 1.<br><br>
+> > **Duplicate-handling**: case-*insensitive* comparison<br>
 
 > [**SALARY**]<br>
 > (1) Can be empty<br>
 > (2) Only digits<br>
-> Duplicate-handling: exact match<br>
+> > **Utility**:<br> Leading, trailing and internal whitespaces will be trimmed.<br><br>
+> > **Duplicate-handling**: digits match exactly<br>
 
-> [**PERSON duplicate handling**]<br>
+> **PERSON duplicate handling**<br>
 > (1) EMAIL and PHONE_NUMBER are empty: duplicates if NAMEs are the same<br>
 > (2) Else, 2 persons are duplicates if their NAME & PHONE_NUMBER & EMAIL are the same<br>
 </box>
@@ -219,13 +230,15 @@ Examples:
 
 **Validation & Duplicate-handling Rules**
 
+> **TAG**<br>
 > (1) Only alphanumeric characters and `!@#$?|<>_*&:;=`<br>
 > (2) At most 30 characters long<br>
-> Duplicate-handling: case-sensitive match
+> > **Utility**: leading and trailing whitespaces will be trimmed.<br><br>
+> > **Duplicate-handling**: case-sensitive match
 
 
 ### Adding certificates : `cert-add`
-Format `cert-add INDEX [n/CERT_NAME] [e/CERT_EXPIRY_DATE]`
+Format `cert-add INDEX n/CERT_NAME e/CERT_EXPIRY_DATE`
 * Adds a Certificate to a person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * A Certificate must have both a name and an expiry date.
@@ -236,16 +249,23 @@ Example: `cert-add 1 n/OSCP e/2028-03-05`
 
 <box type="info" seamless>
 
-> Note that:
-> - Certificate names are case-sensitive and limited to alphanumeric characters only.
-> - Multiple instances of Certificates with the same name will be considered duplicates, even if the expiry dates are different.
-
 </box>
 
 **Validation & Duplicate-handling Rules**
-> (1) CERT_NAME : Only alphanumeric characters and spaces<br>
-> (2) CERT_EXPIRY_DATE : format `yyyy-mm-dd`<br>
-> Duplicate-handling: case-sensitive match of the name only; the expiry date is not considered
+
+> **CERT_NAME**<br>
+> (1) Only alphanumeric characters and spaces<br>
+> > **Utility**: leading and trailing whitespaces will be trimmed. Internal whitespaces will be trimmed to 1.<br><br>
+> > **Duplicate-handling**: case-sensitive match
+
+> **CERT_EXPIRY_DATE**<br>
+> (1) Must follow format `YYYY-MM-DD`<br>
+> (2) Must be a valid date.<br>
+> > **Utility**: leading and trailing whitespaces will be trimmed.<br><br>
+> > **Duplicate-handling**: same YYYY-MM-DD
+
+> **CERTIFICATE duplicate handling**<br>
+> Multiple instances of CERTIFICATE with the same CERT_NAME will be considered duplicates, even if their CERT_EXPIRY_DATE are different.
 
 
 ### Deleting certificates : `cert-del`
@@ -281,7 +301,7 @@ Format: `undo`
 > * Limited to undoing **exactly one command** to restore the contact list to the immediate previous state.
 > * Will do nothing if there is no change in previous state (e.g. just restarted the app; consecutive attempts to undo; after calling the `list`, `find` or `sort` commands).
 
-> * </box>
+</box>
 
 ### Clearing all entries : `clear`
 Format: `clear`
