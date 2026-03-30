@@ -53,27 +53,6 @@ public class Messages {
     }
 
     /**
-     * Returns an error message indicating that certain specified (needy) prefixes
-     * must be used in conjunction with other (required) prefixes.
-     */
-    public static String getErrorMessageForPrefixRequiringAnotherPrefix(Set<Prefix> requiredPrefixes,
-                                                                  Prefix... prefixes) {
-        assert prefixes.length > 0;
-        assert requiredPrefixes != null;
-        assert !requiredPrefixes.isEmpty();
-
-        Set<String> needyFields =
-                Stream.of(prefixes).map(Prefix::toString).collect(Collectors.toCollection(TreeSet::new));
-
-        Set<String> requiredFields =
-                requiredPrefixes.stream().map(Prefix::toString).collect(Collectors.toCollection(TreeSet::new));
-
-
-        return String.format(MESSAGE_ONE_FIELD_REQUIRES_ANOTHER, String.join(" ", needyFields),
-                String.join(" ", requiredFields));
-    }
-
-    /**
      * Returns an error message indicating that at least one of the following prefixes must be specified
      */
     public static String getErrorMessageForAtLeaseOnePrefixRequired(Prefix... prefixes) {

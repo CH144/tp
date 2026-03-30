@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.Messages;
@@ -102,28 +101,6 @@ public class ArgumentMultimap {
 
         if (foundPrefixes.isEmpty()) {
             throw new ParseException(Messages.getErrorMessageForAtLeaseOnePrefixRequired(prefixes));
-        }
-    }
-
-    /**
-     * Throws a {@code ParseException} if any of the prefixes given in {@code prefixes} appeared
-     * without any of the prefixes in {@code requiredPrefixes}, among the arguments.
-     * If no prefixes from {@code prefixes} are found among the arguments, no Exception is thrown.
-     */
-    public void verifyPrefixComesWithAnother(Set<Prefix> requiredPrefixes, Prefix... prefixes) throws ParseException {
-
-        Prefix[] foundNeedyPrefixes = Stream.of(prefixes).distinct().filter(argMultimap::containsKey)
-                .toArray(Prefix[]::new);
-
-        if (foundNeedyPrefixes.length == 0) {
-            return;
-        }
-
-        List<Prefix> foundRequiredPrefixes = requiredPrefixes.stream().filter(argMultimap::containsKey).toList();
-
-        if (foundRequiredPrefixes.isEmpty()) {
-            throw new ParseException(Messages.getErrorMessageForPrefixRequiringAnotherPrefix(requiredPrefixes,
-                    foundNeedyPrefixes));
         }
     }
 }
