@@ -36,12 +36,14 @@ public class CertEditCommandParser {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CERT_NAME, PREFIX_CERT_EXPIRY,
                 PREFIX_CERT_EDIT_NAME, PREFIX_CERT_EDIT_DATE);
+        argMultimap.verifyAtLeastOnePrefixFor(PREFIX_CERT_NAME);
+        argMultimap.verifyAtLeastOnePrefixFor(PREFIX_CERT_EDIT_NAME, PREFIX_CERT_EDIT_DATE);
 
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CertEditCommand.MESSAGE_USAGE), pe);
+        } catch (ParseException parseException) {
+            throw new ParseException(parseException.getMessage() + "\n\n" + CertEditCommand.MESSAGE_USAGE);
         }
 
         CertName name = ParserUtil.parseCertName(argMultimap.getValue(PREFIX_CERT_NAME).get());
