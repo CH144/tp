@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,30 +34,30 @@ public class SampleDataUtil {
                     new Phone("+65 81234567"),
                     new Email("johnkler@example.co"),
                     new Address("123D Pine Road, #12-345, Singapore 123456"),
-                    getTagSet(new Pair<>("Pentester", "red"), new Pair<>("AD", "blue")),
+                    getTagSet(List.of(new Pair<>("Pentester", "red"), new Pair<>("AD", "blue"))),
                     new Salary("6500"),
-                    getCertificateArrayList(new Pair<>("OSCP Plus", "2028-12-31"))),
+                    getCertificateArrayList(List.of(new Pair<>("OSCP Plus", "2028-12-31")))),
             new Person(
                     new Name("John Doe"),
                     new Phone("+65 87654321"),
                     new Email("johndoe@example.co"),
                     new Address("321D Einp Road, #54-321, Singapore 654321"),
-                    getTagSet(new Pair<>("Pentester", "red"), new Pair<>("Web", "green")),
+                    getTagSet(List.of(new Pair<>("Pentester", "red"), new Pair<>("Web", "green"))),
                     new Salary("6500"),
-                    getCertificateArrayList(new Pair<>("Burp Suite Certified Practitioner", "2027-06-21"))),
+                    getCertificateArrayList(List.of(new Pair<>("Burp Suite Certified Practitioner", "2027-06-21")))),
             new Person(
                     new Name("Jane Do"),
                     new Phone("+65 84321765"),
                     new Email("janedo@example.co"),
                     new Address("987A Nepi Road, #21-543, Singapore 321654"),
-                    getTagSet(new Pair<>("Intern", "yellow")),
+                    getTagSet(List.of(new Pair<>("Intern", "yellow"))),
                     new Salary("1300")),
             new Person(
                     new Name("Johny Doeh"),
                     new Phone("+65 81357246"),
                     new Email("johnydoeh@example.co"),
                     new Address("654B Enpi Road, #45-123, Singapore 246135"),
-                    getTagSet(new Pair<>("Intern", "yellow")),
+                    getTagSet(List.of(new Pair<>("Intern", "yellow"))),
                     new Salary("1300"))
         };
     }
@@ -81,8 +82,8 @@ public class SampleDataUtil {
     /**
      * Returns a tag set containing the list of strings given, with the given colour for each.
      */
-    private static Set<Tag> getTagSet(Pair<String, String>... pairs) {
-        return Arrays.stream(pairs)
+    private static Set<Tag> getTagSet(List<Pair<String, String>> pairs) {
+        return pairs.stream()
                 .map(p -> new Tag(p.t(), convertToTagColour(p.u())))
                 .collect(Collectors.toSet());
     }
@@ -106,7 +107,7 @@ public class SampleDataUtil {
     /**
      * Returns a certificate array list containing the list of strings given.
      */
-    private static ArrayList<Certificate> getCertificateArrayList(Pair<String, String>... pairs) {
+    private static ArrayList<Certificate> getCertificateArrayList(List<Pair<String, String>> pairs) {
         ArrayList<Certificate> certs = new ArrayList<>();
         for (Pair<String, String> p : pairs) {
             certs.add(new Certificate(
