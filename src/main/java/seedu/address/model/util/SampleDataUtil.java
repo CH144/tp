@@ -18,52 +18,45 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagColour;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        ArrayList<Certificate> oscpCert = new ArrayList<>();
-        oscpCert.add(new Certificate(
-                new CertName("OSCP Plus"),
-                new CertExpiry(LocalDate.parse("2028-12-31"))));
+    private record Pair<T, U>(T t, U u) {}
 
-        ArrayList<Certificate> burpCert = new ArrayList<>();
-        burpCert.add(new Certificate(
-                new CertName("Burp Suite Certified Practitioner"),
-                new CertExpiry(LocalDate.parse("2027-06-21"))));
-
+    private static Person[] getSamplePersons() {
         return new Person[] {
             new Person(
                     new Name("John Kler"),
                     new Phone("+65 81234567"),
                     new Email("johnkler@example.co"),
                     new Address("123D Pine Road, #12-345, Singapore 123456"),
-                    getTagSet("Pentester", "AD"),
+                    getTagSet(new Pair<>("Pentester", "red"), new Pair<>("AD", "blue")),
                     new Salary("6500"),
-                    oscpCert),
+                    getCertificateArrayList(new Pair<>("OSCP Plus", "2028-12-31"))),
             new Person(
                     new Name("John Doe"),
                     new Phone("+65 87654321"),
                     new Email("johndoe@example.co"),
                     new Address("321D Einp Road, #54-321, Singapore 654321"),
-                    getTagSet("Pentester", "Web"),
+                    getTagSet(new Pair<>("Pentester", "red"), new Pair<>("Web", "green")),
                     new Salary("6500"),
-                    burpCert),
+                    getCertificateArrayList(new Pair<>("Burp Suite Certified Practitioner", "2027-06-21"))),
             new Person(
                     new Name("Jane Do"),
                     new Phone("+65 84321765"),
                     new Email("janedo@example.co"),
                     new Address("987A Nepi Road, #21-543, Singapore 321654"),
-                    getTagSet("Intern"),
+                    getTagSet(new Pair<>("Intern", "yellow")),
                     new Salary("1300")),
             new Person(
                     new Name("Johny Doeh"),
                     new Phone("+65 81357246"),
                     new Email("johnydoeh@example.co"),
                     new Address("654B Enpi Road, #45-123, Singapore 246135"),
-                    getTagSet("Intern"),
+                    getTagSet(new Pair<>("Intern", "yellow")),
                     new Salary("1300"))
         };
     }
@@ -77,7 +70,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a tag set containing the list of strings given, with the default colour for all.
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
@@ -85,4 +78,41 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns a tag set containing the list of strings given, with the given colour for each.
+     */
+    private static Set<Tag> getTagSet(Pair<String, String>... pairs) {
+        return Arrays.stream(pairs)
+                .map(p -> new Tag(p.t(), convertToTagColour(p.u())))
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns the TagColour representation of the colour.
+     */
+    private static TagColour convertToTagColour(String userColourName) {
+        switch (userColourName) {
+        case "red":
+            return TagColour.RED;
+        case "yellow":
+            return TagColour.YELLOW;
+        case "green":
+            return TagColour.GREEN;
+        default:
+            return TagColour.BLUE;
+        }
+    }
+
+    /**
+     * Returns a certificate array list containing the list of strings given.
+     */
+    private static ArrayList<Certificate> getCertificateArrayList(Pair<String, String>... pairs) {
+        ArrayList<Certificate> certs = new ArrayList<>();
+        for (Pair<String, String> p : pairs) {
+            certs.add(new Certificate(
+                   new CertName(p.t()),
+                   new CertExpiry(LocalDate.parse(p.u()))));
+        }
+        return certs;
+    }
 }
