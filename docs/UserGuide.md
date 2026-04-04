@@ -201,6 +201,13 @@ Examples:
 2. `tag 1 d/Best_Employee` deletes a tag `Best_Employee`.
 3. `tag 1 a/HR Best_Employee` adds two tags `HR` and `Best_Employee` with the default colouration.
 
+<box type="info" seamless>
+
+> **Note:**
+> * Duplicate tag(s) (i.e. the contact already has a tag of that name, regardless of colour) will be silently ignored when adding a mix of duplicate and non-duplicate tag(s). 
+> * Likewise, non-existent tag(s) (i.e. the contact does not have a tag with that name) will be silently ignored when deleting a mix of existing and non-existing tag(s).
+
+</box>
 <br>
 
 ### Adding certificates : `cert-add`
