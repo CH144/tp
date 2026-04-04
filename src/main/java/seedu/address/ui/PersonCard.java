@@ -68,7 +68,10 @@ public class PersonCard extends UiPart<Region> {
                     tags.getChildren().add(tagLabel);
                 });
 
-        person.getCertificates()
+        person.getCertificates().stream()
+                .filter(cert -> {
+                    return cert.getExpiry().hasExpiry();
+                })
                 .forEach(cert -> {
                     Label l = new Label(cert.displayCertString());
                     l.setWrapText(true);
