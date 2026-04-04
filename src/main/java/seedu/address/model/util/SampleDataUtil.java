@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,22 +25,9 @@ import seedu.address.model.tag.TagColour;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    private record Pair<T, U>(T t, U u) {}
+
     public static Person[] getSamplePersons() {
-        ArrayList<Certificate> oscpCert = new ArrayList<>();
-        oscpCert.add(new Certificate(
-                new CertName("OSCP Plus"),
-                new CertExpiry(LocalDate.parse("2028-12-31"))));
-
-        ArrayList<Certificate> burpCert = new ArrayList<>();
-        burpCert.add(new Certificate(
-                new CertName("Burp Suite Certified Practitioner"),
-                new CertExpiry(LocalDate.parse("2027-06-21"))));
-
-        ArrayList<Certificate> uiCert = new ArrayList<>();
-        uiCert.add(new Certificate(
-                new CertName("Google UX Certificate"),
-                new CertExpiry(LocalDate.parse("2027-02-21"))));
-
 
         return new Person[] {
             new Person(
@@ -47,68 +35,70 @@ public class SampleDataUtil {
                     new Phone("+65 81234567"),
                     new Email("johnkler@example.co"),
                     new Address("123D Pine Road, #12-345, Singapore 123456"),
-                    Set.of(new Tag("CEO", TagColour.YELLOW)),
-                    new Salary("6500"),
-                    oscpCert),
+                    getTagSet(Set.of(new Pair<>("CEO", "yellow"))),
+                    new Salary("8500"),
+                    getCertificateArrayList(List.of(new Pair<>("OSCP Plus", "2028-12-31")))),
             new Person(
                     new Name("John Doe"),
                     new Phone("+65 87654321"),
                     new Email("johndoe@example.co"),
                     new Address("321D Einp Road, #54-321, Singapore 654321"),
-                    Set.of(new Tag("IT", TagColour.YELLOW), new Tag("Security", TagColour.GREEN)),
+                    getTagSet(Set.of(new Pair<>("MEET-LATER", "red"), new Pair<>("IT", "yellow"),
+                            new Pair<>("Security", "green"))),
                     new Salary("6500"),
-                    burpCert),
+                    getCertificateArrayList(List.of(new Pair<>("Burp Suite Certified Practitioner", "2027-06-21"),
+                            new Pair<>("OSCP Plus", "2026-04-03")))),
             new Person(
                     new Name("Jane Do"),
                     new Phone("+65 84321765"),
                     new Email("janedo@example.co"),
                     new Address("987A Nepi Road, #21-543, Singapore 321654"),
-                    Set.of(new Tag("Development", TagColour.YELLOW), new Tag("UI-UX", TagColour.GREEN),
-                            new Tag("Intern", TagColour.PURPLE)),
+                    getTagSet(Set.of(new Pair<>("Development", "yellow"), new Pair<>("UI-UX", "green"),
+                            new Pair<>("Intern", "blue"))),
                     new Salary("1300")),
             new Person(
                     new Name("Johny Doeh"),
                     new Phone("+65 81357246"),
                     new Email("johnydoeh@example.co"),
                     new Address("654B Enpi Road, #45-123, Singapore 246135"),
-                    Set.of(new Tag("Admin", TagColour.YELLOW), new Tag("HR", TagColour.GREEN),
-                            new Tag("Intern", TagColour.PURPLE)),
+                    getTagSet(Set.of(new Pair<>("Development", "yellow"), new Pair<>("BackEnd", "green"),
+                            new Pair<>("Intern", "blue"))),
                     new Salary("1300")),
             new Person(
                     new Name("Bernice Yu"),
                     new Phone("+65 99272758"),
                     new Email("berniceyu@example.co"),
                     new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    Set.of(new Tag("Development", TagColour.YELLOW), new Tag("UI-UX", TagColour.GREEN)),
-                    new Salary("1300"),
-                    uiCert),
+                    getTagSet(Set.of(new Pair<>("Development", "yellow"), new Pair<>("UI-UX", "green"))),
+                    new Salary("5300"),
+                    getCertificateArrayList(List.of(new Pair<>("Google UX Design Certificate", "2026-04-13")))),
             new Person(
                     new Name("Charlotte Oliveiro"),
                     new Phone("+65 93210283"),
                     new Email("charlotte@example.co"),
                     new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    Set.of(new Tag("IT", TagColour.YELLOW), new Tag("Security", TagColour.GREEN)),
+                    getTagSet(Set.of(new Pair<>("IT", "yellow"), new Pair<>("Security", "green"))),
                     new Salary("6700")),
             new Person(
                     new Name("David Li"),
                     new Phone("+65 91031282"),
                     new Email("lidavid@example.co"),
                     new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    Set.of(new Tag("Admin", TagColour.YELLOW), new Tag("HR", TagColour.GREEN)),
+                    getTagSet(Set.of(new Pair<>("Admin", "yellow"), new Pair<>("HR", "green"))),
                     new Salary("5500")),
             new Person(
                     new Name("Irfan Ibbrahim"),
                     new Phone("+65 92492021"),
                     new Email("irfan@example.co"),
                     new Address("Blk 47 Tampines Street 20, #17-35"),
-                    Set.of(new Tag("Admin", TagColour.YELLOW), new Tag("HR", TagColour.GREEN)),
+                    getTagSet(Set.of(new Pair<>("Admin", "yellow"), new Pair<>("HR", "green"))),
                     new Salary("5500")),
             new Person(
                     new Name("Roy Balakrishnan"),
                     new Phone("+65 92624417"),
                     new Email("royb@example.co"),
                     new Address("Blk 45 Aljunied Street 85, #11-31"),
-                    Set.of(new Tag("Development", TagColour.YELLOW), new Tag("FrontEnd", TagColour.GREEN)),
+                    getTagSet(Set.of(new Pair<>("Development", "yellow"), new Pair<>("FrontEnd", "green"))),
                     new Salary("6700"))
         };
     }
@@ -122,12 +112,50 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a tag set containing the list of strings given, with the default colour for all.
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Tag::new)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns a tag set containing the list of strings given, with the given colour for each.
+     */
+    private static Set<Tag> getTagSet(Set<Pair<String, String>> pairs) {
+        return pairs.stream()
+                .map(p -> new Tag(p.t(), convertToTagColour(p.u())))
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns the TagColour representation of the colour.
+     */
+    private static TagColour convertToTagColour(String userColourName) {
+        switch (userColourName) {
+        case "red":
+            return TagColour.RED;
+        case "yellow":
+            return TagColour.YELLOW;
+        case "green":
+            return TagColour.GREEN;
+        default:
+            return TagColour.BLUE;
+        }
+    }
+
+    /**
+     * Returns a certificate array list containing the list of strings given.
+     */
+    private static ArrayList<Certificate> getCertificateArrayList(List<Pair<String, String>> pairs) {
+        ArrayList<Certificate> certs = new ArrayList<>();
+        for (Pair<String, String> p : pairs) {
+            certs.add(new Certificate(
+                    new CertName(p.t()),
+                    new CertExpiry(LocalDate.parse(p.u()))));
+        }
+        return certs;
     }
 
 }
