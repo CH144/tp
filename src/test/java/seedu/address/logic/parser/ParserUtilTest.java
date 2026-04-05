@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -38,8 +39,10 @@ public class ParserUtilTest {
     private static final String VALID_PHONE = "+65 123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TAG_1 = "Department";
+    private static final String VALID_TAG_2 = "IT";
+    private static final String VALID_TAG_3 = "Security";
+
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -196,27 +199,91 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
-    }
-
-    @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() {
+    public void parseTags_listWithInvalidTags_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
     }
 
     @Test
-    public void parseTags_emptyCollection_throwsAssertionError() throws Exception {
-
+    public void parseTags_emptyList_throwsAssertionError() throws Exception {
         assertThrows(AssertionError.class, () -> ParserUtil.parseTags(Collections.emptyList()));
+        assertThrows(AssertionError.class, () -> ParserUtil.parseTags(Collections.emptyList(), List.of("red")));
+        assertThrows(AssertionError.class, () -> ParserUtil.parseTags(List.of("tagName"), Collections.emptyList()));
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
+    public void parseTags_null_throwsNullPointerException() throws Exception {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null, List.of("red")));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(List.of("tagName"), null));
+    }
+
+    @Test
+    public void parseTags_listWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
         Set<Tag> expectedTagSet = new TagSet();
         expectedTagSet.add(new Tag(VALID_TAG_1));
         expectedTagSet.add(new Tag(VALID_TAG_2));
+
+        assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseTags_listWithDuplicateTagNames_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_1)));
+    }
+
+    @Test
+    public void parseTags_listWithValidMultiColour_returnsTagSet() throws Exception {
+        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2, VALID_TAG_3),
+                Arrays.asList("red", "GREEN", "pUrplE"));
+        Set<Tag> expectedTagSet = new TagSet();
+        expectedTagSet.add(new Tag(VALID_TAG_1, TagColour.RED));
+        expectedTagSet.add(new Tag(VALID_TAG_2, TagColour.GREEN));
+        expectedTagSet.add(new Tag(VALID_TAG_3, TagColour.PURPLE));
+
+        assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseTags_listWithWrongNumberOfColour_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(
+                Arrays.asList(VALID_TAG_1, VALID_TAG_2, VALID_TAG_3), Arrays.asList("red", "green")));
+
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(
+                Arrays.asList(VALID_TAG_1, VALID_TAG_2, VALID_TAG_3), Arrays.asList("red", "green", "purple", "red")));
+    }
+
+    @Test
+    public void parseTags_listWithInvalidColour_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(
+                Arrays.asList(VALID_TAG_1, VALID_TAG_2, VALID_TAG_3), Arrays.asList("red", "green", "Puzle")));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(
+                Arrays.asList(VALID_TAG_1, VALID_TAG_2, VALID_TAG_3), Arrays.asList("red", "grren", "Purple")));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(
+                Arrays.asList(VALID_TAG_1, VALID_TAG_2, VALID_TAG_3), Arrays.asList("redi", "green", "Purple")));
+
+    }
+
+    @Test
+    public void parseTags_listWithOneColour_returnsTagSet() throws Exception {
+        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2, VALID_TAG_3),
+                List.of("red"));
+        Set<Tag> expectedTagSet = new TagSet();
+        expectedTagSet.add(new Tag(VALID_TAG_1, TagColour.RED));
+        expectedTagSet.add(new Tag(VALID_TAG_2, TagColour.RED));
+        expectedTagSet.add(new Tag(VALID_TAG_3, TagColour.RED));
+
+        assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseTags_listWithDuplicateColour_returnsTagSet() throws Exception {
+        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2, VALID_TAG_3),
+                List.of("green", "green", "green"));
+        Set<Tag> expectedTagSet = new TagSet();
+        expectedTagSet.add(new Tag(VALID_TAG_1, TagColour.GREEN));
+        expectedTagSet.add(new Tag(VALID_TAG_2, TagColour.GREEN));
+        expectedTagSet.add(new Tag(VALID_TAG_3, TagColour.GREEN));
 
         assertEquals(expectedTagSet, actualTagSet);
     }
