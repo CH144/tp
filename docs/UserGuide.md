@@ -32,7 +32,7 @@ Big Brother is a desktop app for Human Resources of small startups, of less than
    Note the app name may be slightly different due to versions.<br>
    A GUI similar to the below should appear in a few seconds.<br>
 
-<img src="images/Ui.png" width="750" />
+<img src="images/Ui.png" width="750" style="margin-bottom:30px"/>
 
 6. Type a command in the command box (the red-brown rectangle at the top) and press Enter to execute it.<br>
 * Refer to the [Features](#features) below for details of each command.<br>
@@ -87,7 +87,7 @@ Big Brother is a desktop app for Human Resources of small startups, of less than
 ### Viewing in-app help menu : `help`
 Format: `help`
 
-<img src="images/helpMessage.png" width="750" />
+<img src="images/helpMessage.png" width="750" style="margin-bottom:30px"/>
 
 <box type="tip" seamless>
 
