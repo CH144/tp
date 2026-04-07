@@ -180,15 +180,17 @@ The `find` mechanism is facilitated by ModelManager which implements the `update
 
 Given below are the internal steps taken to execute the `find` feature in an example use scenario.
 
-Step 1. The user executes the command `find n/John`. The `AddressBookParser` extracts the command word `find` and constructs a `FindCommandParser`.
+Step 1. The user executes the command `find n/John t/IT`. The `AddressBookParser` extracts the command word `find` and constructs a `FindCommandParser`.
 
-Step 2. The `FindCommandParser` extracts the parameter value `John` and constructs a `Predicate<Person>` that tests if the `Person` object has a `Name` that contains the value `John`. 
+Step 2. The `FindCommandParser` extracts the parameter value `John` and constructs a `Predicate<Person>` that tests if the `Person` object has a `Name` that contains the value `John`. `FindCommandParser` also extracts the parameter value `IT` and constructs a `Predicate<Person>` that tests if the `Person` object has a `Tag` that contains the value `IT`.
 
-Step 3. The `FindCommandParser` creates a `FindCommand` object with the predicate and calls `FindCommand#execute(Model)`
+Step 3. `FindCommandParser` adds both predicates into a `List<Predicate<Person>>` which is used to construct a `CombinedPredicate` object. A `CombinedPredicate` implements the interface `Predicate<Person>` and tests a `Person` against all predicates in the supplied list.
 
-Step 4. `FindCommand#execute(Model)` executes the `updateFilteredPersonList(Predicate<Person>)` method that tests all `Persons` with the predicate.
+Step 4. The `FindCommandParser` creates a `FindCommand` object with the `CombinedPredicate` object and calls `FindCommand#execute(Model)`
 
-Step 5. Only `Persons` that return `true` with the supplied predicate are kept in the filtered list.
+Step 5. `FindCommand#execute(Model)` executes the `updateFilteredPersonList(Predicate<Person>)` method that tests all `Persons` with the predicate.
+
+Step 6. Only `Persons` that return `true` with the supplied predicate are kept in the filtered list.
 
 ###  Undo feature
 
