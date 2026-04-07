@@ -124,9 +124,9 @@ Example: `edit 1 p/+017 91234567 e/johndoe@example.com`
 
 * Edits the phone to `+017 91234567` and the email to `johndoe@example.com` for the first person.
 
-<box type="tip" seamless>
+<box type="info" seamless>
 
-**Tip on duplicate warning**
+**Note on duplicate warning**
 
 > If you `edit` a contact such that it now matches another existing contact in your list, Big Brother will perform the edit but will trigger a **warning pop-up** to alert you of the duplicate. You can choose to keep the duplicate or delete it later.
 </box>
@@ -163,8 +163,11 @@ Examples:
 2. `find c/OSCP` returns all persons with certificate names containing `OSCP`.
 3. `find n/Alex t/IT e/2027-03-15` returns all persons whose name contains `Alex`, with tags that contain `IT` and with certificates that expire before 15th March 2027.
 
-> **Tip:**
+<box type="tip" seamless>
+
+**Tip on viewing the full list again**
 > If you want to see the original contact list after performing a `find` command, use the `list` command instead of the `undo` command, since finding is not a data-modifying command that changes state of the contact list.
+</box>
 
 <br>
 
@@ -191,28 +194,24 @@ Examples:
 
 <box type="info" seamless>
 
-> **Note:**
-> * Duplicate tag(s) (i.e. the contact already has a tag of that name, regardless of colour) will be silently ignored when adding a mix of duplicate and non-duplicate tag(s). 
-> * Likewise, non-existent tag(s) (i.e. the contact does not have a tag with that name) will be silently ignored when deleting a mix of existing and non-existing tag(s).
+**Notes on no duplicate warning**
+> Duplicate tag(s) (i.e. the contact already has a tag of that name, regardless of colour) will be silently ignored when adding a mix of duplicate and non-duplicate tag(s). 
+
+> Likewise, non-existent tag(s) (i.e. the contact does not have a tag with that name) will be silently ignored when deleting a mix of existing and non-existing tag(s).
 
 </box>
 <br>
 
 ### Adding certificates : `cert-add`
-Format: `cert-add INDEX n/CERT_NAME [e/CERT_EXPIRY_DATE]`
+Format: `cert-add INDEX n/CERT_NAME [e/CERT_EXPIRY_DATE]`.
 * Adds a Certificate to a person at the specified `INDEX`.
-* A Certificate must have a name(which is case-insensitive), whereas expiry date is optional.
+* A Certificate must have a name (which is case-insensitive).
+* Expiry dates are optional (you can omit `e/` for Certificates that have no expiry date).
 * Expiry dates must be formatted as **YYYY-MM-DD**.
 
 Examples:<br>
 * `cert-add 1 n/OSCP e/2028-03-05` adds a certificate named OSCP with an expiry date on 5th March 2028 to the first person in the list.
 * `cert-add 1 n/CompTIA` adds a certificate named CompTIA with no expiry date to the first person in the list.
-
-<box type="info" seamless>
-
-> Tip: If a certificate has **no** expiry date, omit `e/` in the `cert-add` command.
-
-</box>
 
 <br>
 
@@ -247,8 +246,9 @@ Format: `undo`
 
 <box type="warning" seamless>
 
-> **CAUTION:**
+**CAUTION:**
 > `list` and `find` do not change the state of the contact list, so an `undo` will undo the most recent command that changed the state (e.g. `add` followed by `find` followed by `undo` will undo `add`)
+
 > When an `undo` succeeds, another `undo` cannot be run until another command that changes the state is run (e.g. `undo` followed by `add` followed by `undo`)
 
 </box>
@@ -271,6 +271,8 @@ Format: `sort`
   
 ### Clearing all entries : `clear`
 Format: `clear`
+
+* You can use this to instantly clear the sample data.
 
 <box type="tip" seamless>
 
