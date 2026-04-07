@@ -144,6 +144,7 @@ public class ParserUtil {
      */
     public static Tag parseTag(String tag, TagColour tagColour) throws ParseException {
         requireNonNull(tag);
+        requireNonNull(tagColour);
         String trimmedTag = normaliseWhiteSpace(tag);
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);

@@ -288,7 +288,6 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_extraWhitespace_returnsNormalizedTags() throws Exception {
-        String tagsWithSpaces = "  HR     hr  ";
         Set<Tag> expectedTagSet = new TreeSet<>(new TagNameComparator());
         expectedTagSet.add(new Tag("HR"));
         expectedTagSet.add(new Tag("hr"));

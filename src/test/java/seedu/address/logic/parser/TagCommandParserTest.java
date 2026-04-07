@@ -9,26 +9,18 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.TagCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagColour;
 
 public class TagCommandParserTest {
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format("%1$s", TagCommand.MESSAGE_USAGE);
 
     private TagCommandParser parser = new TagCommandParser();
-
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     private String defaultTagFlags = "a/TEST1 d/TEST2";
 
