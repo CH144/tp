@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import java.util.Set;
 
@@ -72,9 +73,9 @@ public class TagCommandParserTest {
 
     @Test
     public void parse_someFieldsPresent_success() {
-        assertParseSuccess(parser, "1 d/TEST1 TEST2",
-                new TagCommand(INDEX_FIRST_PERSON,
-                        Set.of(new Tag("TEST1"), new Tag("TEST2")),
+        assertParseSuccess(parser, "2 d/friends owesMoney",
+                new TagCommand(INDEX_SECOND_PERSON,
+                        Set.of(new Tag("friends"), new Tag("owesMoney")),
                         false
                 ));
 
@@ -85,9 +86,21 @@ public class TagCommandParserTest {
                         true
                 ));
 
+        assertParseSuccess(parser, "1 a/TEST1 TEST2",
+                new TagCommand(INDEX_FIRST_PERSON,
+                        Set.of(new Tag("TEST1"), new Tag("TEST2")),
+                        true
+                ));
+
         assertParseSuccess(parser, "1 a/TEST1 TEST2 c/purple",
                 new TagCommand(INDEX_FIRST_PERSON,
                         Set.of(new Tag("TEST1", TagColour.PURPLE), new Tag("TEST2", TagColour.PURPLE)),
+                        true
+                ));
+
+        assertParseSuccess(parser, "1 a/TEST1 TEST2 c/purple red",
+                new TagCommand(INDEX_FIRST_PERSON,
+                        Set.of(new Tag("TEST1", TagColour.PURPLE), new Tag("TEST2", TagColour.RED)),
                         true
                 ));
     }
