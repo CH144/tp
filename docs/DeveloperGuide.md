@@ -192,6 +192,39 @@ Step 5. `FindCommand#execute(Model)` executes the `updateFilteredPersonList(Pred
 
 Step 6. Only `Persons` that return `true` with the supplied predicate are kept in the filtered list.
 
+### Tagging feature
+
+The `tag` command allows for both adding or deleting of tags (but not both at the same time). Colours for these tags can be specified by the user
+
+### Implementation
+
+
+<puml src="diagrams/TaggingSequenceDiagram.puml" alt="TaggingSequenceDiagram" />
+
+Given below are the internal steps taken to execute the `tag` command in an example use scenario. Steps 2 and 4 have been omitted from the above diagram for diagram readability.
+
+Step 1. The user executes the command `tag 1 a/Department IT c/red green`. The `AddressBookParser` extracts the command word `tag` and constructs a `TagCommandParser`.
+
+Step 2. When `TagCommandParser#parse()` is called, it utilizes helper functions from `argMultimap` to check if the correct combination of prefixes were added. An invalid combination results in a `ParserError` being thrown
+
+Step 3. `TagCommandParser` passes the tag processing responsibility to `ParseUtil`. `ParseUtil` will throw a `ParserError` if there are input validation errors.
+
+Step 4. `ParseUtil` will return a `Set` of `Tag` objects. To enforce duplicate `Tag` checks by name and not by colour, `ParseUtil` returns a `TagSet` (extends `TreeSet<TagNameComparator>`) which orders `Tags` by `TagName` only.
+
+Step 5. `TagCommandParser` will create a `TagCommand` object with an `INDEX`, the `Set` of `Tag` objects to update, as well as a boolean to indicate if the update is to add or delete tags.
+
+Step 6. `TagCommand` is passed to `LogicManager` by `TagCommandParser` and `AddressBookParser`.
+
+Step 7. `TagCommand#execute(Model)` is called by `LogicManager`.
+
+Step 8. `TagCommand` retrieves the `personToEdit` from `Model#getFilteredPersonList` using `INDEX`
+
+Step 9. `TagCommand` calls `modifyTagsForPerson(Person, Set<Tag>, boolean)`, which creates a copy of `personToEdit` with the updated `Set` of `Tags`
+
+Step 10. `TagCommand` calls `Model#setPerson(Person, Person)` to overwrite the old `personToEdit` with a new copy that has the updated `Set` of `Tags`
+
+Step 11. `TagCommand` returns a `CommandResult` object to indicate success or a warning.
+
 ###  Undo feature
 
 The `undo` mechanism is implemented within ModelManager. It allows the user to restore the address book to its immediate previous state after a data-modifying command, but only once.
