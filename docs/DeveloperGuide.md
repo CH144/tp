@@ -447,8 +447,59 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+**Use case: UC6 Add a certificate to a person**
 
-*{More to be added}*
+**MSS**
+
+1.  User requests to list persons
+2.  Big Brother shows a list of persons
+3.  User requests to add a certificate to a specific person in the list
+4.  Big Brother adds the certificate to the person
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty
+
+  Use case ends.
+
+* 3a. The given person's index is invalid
+
+    * 3a1. Big Brother shows an error message
+
+      Use case resumes at step 2.
+
+**Use case: UC7 Delete a certificate**
+
+**MSS**
+
+1.  User requests to list persons
+2.  Big Brother shows a list of persons
+3.  User requests to delete a certificate from a specific person in the list
+4.  Big Brother deletes the certificate from the person
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty
+
+  Use case ends.
+
+* 3a. The given person's index is invalid
+
+    * 3a1. Big Brother shows an error message
+
+      Use case resumes at step 2.
+
+* 3b. The certificate specified cannot be found
+
+    * 3b1. Big Brother shows an error message
+
+      Use case resumes at step 2.
+
+
 
 ### Non-Functional Requirements
 
