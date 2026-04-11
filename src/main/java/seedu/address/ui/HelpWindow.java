@@ -63,7 +63,6 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void setHelpMessage(String helpMessage) {
         this.helpMessage.setText(helpMessage);
-        getRoot().sizeToScene();
     }
 
     /**
@@ -109,6 +108,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().setIconified(false);
+        getRoot().sizeToScene();
         getRoot().centerOnScreen();
         getRoot().requestFocus();
     }
