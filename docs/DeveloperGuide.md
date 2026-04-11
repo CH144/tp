@@ -620,6 +620,8 @@ testers are expected to do more *exploratory* testing
 
 ### Managing Employee Certificates
 
+Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
 1. Adding certificates with expiry
 
    1. Test case: `cert-add 1 n/OSCP e/2026-12-31`
@@ -666,12 +668,14 @@ testers are expected to do more *exploratory* testing
 
 ### Managing Salaries
 
-1. Adding/Editing Salary
+1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+2. Adding/Editing Salary
    1. Test case: `edit 1 sal/5500 0`
    2. Expected: The salary for the first employee is updated to 55000.
 
    3. Test case: `edit 1 sal/-100`
-   4. Expected: Error message indicates that salary must be a non-negative number.
+   4. Expected: Error message indicates that salary must only contain digits and no special characters.
 
 ### Undo Functionality
 
