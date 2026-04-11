@@ -307,10 +307,6 @@ public class ParserUtil {
         //standardize internal whitespace to single spaces
         String basicNormalized = s.trim().replaceAll("\\s+", " ");
 
-        //remove space between '+' and the COUNTRY_CODE
-        //"+ 65 123 33" -> "+65 123 33"
-        String countryCodeFixed = basicNormalized.replaceAll("^\\+\\s+(?=\\d)", "+");
-
         //remove spaces around forward slashes (eg "S / O" -> "S/O")
         return basicNormalized.replaceAll("\\s*/\\s*", "/");
     }

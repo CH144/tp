@@ -186,11 +186,15 @@ Step 2. The `FindCommandParser` extracts the parameter value `John` and construc
 
 Step 3. `FindCommandParser` adds both predicates into a `List<Predicate<Person>>` which is used to construct a `CombinedPredicate` object. A `CombinedPredicate` implements the interface `Predicate<Person>` and tests a `Person` against all predicates in the supplied list.
 
-Step 4. The `FindCommandParser` creates a `FindCommand` object with the `CombinedPredicate` object and calls `FindCommand#execute(Model)`
+Step 4. The `FindCommandParser` creates a `FindCommand` object with the `CombinedPredicate` object
 
-Step 5. `FindCommand#execute(Model)` executes the `updateFilteredPersonList(Predicate<Person>)` method that tests all `Persons` with the predicate.
+Step 5. The `FindCommand` object is passed to `LogicManager` by `FindCommandParser`
 
-Step 6. Only `Persons` that return `true` with the supplied predicate are kept in the filtered list.
+Step 6. `FindCommand#execute(Model)` is called by `LogicManager`
+
+Step 7. The `FindCommand` object executes the `updateFilteredPersonList(Predicate<Person>)` method that tests all `Persons` with the predicate.
+
+Step 8. Only `Persons` that return `true` with the supplied predicate are kept in the filtered list.
 
 ### Tagging feature
 
@@ -616,6 +620,8 @@ testers are expected to do more *exploratory* testing
 
 ### Managing Employee Certificates
 
+Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
 1. Adding certificates with expiry
 
    1. Test case: `cert-add 1 n/OSCP e/2026-12-31`
@@ -662,12 +668,14 @@ testers are expected to do more *exploratory* testing
 
 ### Managing Salaries
 
-1. Adding/Editing Salary
-   1. Test case: `edit 1 s/5500 0`
+1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+2. Adding/Editing Salary
+   1. Test case: `edit 1 sal/5500 0`
    2. Expected: The salary for the first employee is updated to 55000.
 
-   3. Test case: `edit 1 s/-100`
-   4. Expected: Error message indicates that salary must be a non-negative number.
+   3. Test case: `edit 1 sal/-100`
+   4. Expected: Error message indicates that salary must only contain digits and no special characters.
 
 ### Undo Functionality
 

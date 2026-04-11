@@ -15,7 +15,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-// import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -64,17 +63,6 @@ public class FindCommandTest {
         // different predicate -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
-
-    // @Test
-    // public void execute_zeroKeywords_noPersonFound() {
-    //     String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-    //     NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(List.of(" "));
-    //     CombinedPredicate combined = new CombinedPredicate(List.of(predicate));
-    //     FindCommand command = new FindCommand(combined);
-    //     expectedModel.updateFilteredPersonList(combined);
-    //     assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    //     assertEquals(Collections.emptyList(), model.getFilteredPersonList());
-    // }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {

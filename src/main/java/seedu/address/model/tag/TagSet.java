@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.TreeSet;
 
 /**
- * Set specifically made to arrange and check Tags by their Names
+ * Contains, arranges and checks Tags by their Names
  */
 public class TagSet extends TreeSet<Tag> {
 
@@ -16,7 +16,7 @@ public class TagSet extends TreeSet<Tag> {
     }
 
     /**
-     * Set specifically made to arrange and check Tags by their Names
+     * Contains, arranges and checks Tags by their Names
      */
     public TagSet(Collection<Tag> s) {
         this();

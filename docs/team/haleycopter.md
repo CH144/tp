@@ -1,6 +1,6 @@
 ---
   layout: default.md
-    title: "Haley's Project Portfolio Page"
+  title: "Haley's Project Portfolio Page"
 ---
 
 ### Project: Big Brother
@@ -18,7 +18,7 @@ Given below are my contributions to the project.
 * **Code contributed**: [RepoSense link](https://github.com/AY2526S2-CS2103T-T09-1/tp/blob/master/src/main/java/seedu/address/logic/commands/UndoCommand.java)
 
 * **Project management**:
-  * Managed releases `v1.4` on GitHub
+  * Managed releases `v1.3`-`1.5` on GitHub
 
 * **Enhancements to existing features**:
   * Updated the `add` and `edit` command with more parameters like `SALARY` (Pull requests [#54](https://github.com/AY2526S2-CS2103T-T09-1/tp/pull/54))
