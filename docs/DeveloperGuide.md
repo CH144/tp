@@ -15,6 +15,8 @@
 
 * This project evolved from the [AddressBook-Level3 project](https://github.com/se-edu/addressbook-level3) created by the [SE-EDU initiative](https://se-education.org).
 
+> Note: Some components of this project are internally still referred to as "AddressBook"/"address book". These components are related to the Storage and/or Logic aspects of the system and functionally serve the purpose of the address book within the overall application.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting Up, Getting Started**
