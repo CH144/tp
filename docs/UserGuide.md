@@ -61,6 +61,9 @@ Big Brother allows you to manage employee contacts, on your desktop, with keyboa
 * Arguments can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `p/PHONE n/NAME` is also acceptable.
 
+* Prefixes must be specified in lowercase letters.<br>
+  e.g. if name prefix is to be specified, `n/` is accepted whereas `N/` is unaccepted.
+
 * Multiple prefixes must be separated by whitespaces.<br>
   e.g. if the command specifies `n/NAME p/PHONE`, `n/NAMEp/PHONE` is not acceptable.
 
