@@ -260,7 +260,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 <box type="info" seamless>
 
 **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, preserving the existing undo state.
-**Note:** Non-data-modifying commands like `sort`, `list` and `find` will not call `Model#commitAddressBook()`, preserving the existing undo state.
+**Note:** Non-data-modifying commands like `list` and `find` will not call `Model#commitAddressBook()`, preserving the existing undo state.
 
 </box>
 
