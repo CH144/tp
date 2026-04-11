@@ -202,33 +202,13 @@ public class ParserUtil {
     public static Set<Tag> parseTags(List<String> tags, List<String> userInputTagColours) throws ParseException {
         requireNonNull(tags);
         requireNonNull(userInputTagColours);
-
-        if (tags.isEmpty()) {
-            throw new ParseException(MESSAGE_EMPTY_TAG_LIST);
-        }
-
-        if (userInputTagColours.isEmpty()) {
-            throw new ParseException(MESSAGE_EMPTY_TAG_COLOUR_LIST);
-        }
-
-        if (hasDuplicateTags(tags)) {
-            logger.finer("Duplicate Tags specified");
-            throw new ParseException(MESSAGE_DUPLICATE_TAGNAME);
-        }
-
-        boolean isUsingOneColour = (userInputTagColours.size() == 1);
-        logger.finest("Detect only one colour?: " + isUsingOneColour);
+        verifyTagList(tags);
+        verifyColourList(tags.size(), userInputTagColours);
 
         Optional<TagColour> currentColour = TagColour.getTagColourByUserInputName(userInputTagColours.get(0));
-        if (isUsingOneColour && currentColour.isPresent()) {
+        if ((userInputTagColours.size() == 1) && currentColour.isPresent()) {
             logger.finest("Detected only one valid colour. " + currentColour.get());
             return parseTags(tags, currentColour.get());
-        }
-
-        if (userInputTagColours.size() != tags.size()) {
-            logger.finer("Invalid number of colours. Number of colours specified: "
-                    + userInputTagColours.size() + "\nNumber of tags specified: " + tags.size());
-            throw new ParseException(MESSAGE_TAGNAME_NUMBER_AND_COLOUR_NUMBERS_DIFF);
         }
 
         String colourName;
@@ -251,17 +231,33 @@ public class ParserUtil {
 
     private static Set<Tag> parseTags(List<String> tags, TagColour tagColour) throws ParseException {
         requireNonNull(tags);
-        assert(!tags.isEmpty());
-
-        if (hasDuplicateTags(tags)) {
-            throw new ParseException(MESSAGE_DUPLICATE_TAGNAME);
-        }
+        verifyTagList(tags);
 
         final Set<Tag> tagSet = new TagSet();
         for (String tagName : tags) {
             tagSet.add(parseTag(tagName, tagColour));
         }
         return tagSet;
+    }
+
+    private static void verifyTagList(List<String> tags) throws ParseException {
+        if (tags.isEmpty()) {
+            throw new ParseException(MESSAGE_EMPTY_TAG_LIST);
+        }
+        if (hasDuplicateTags(tags)) {
+            logger.finer("Duplicate Tags specified");
+            throw new ParseException(MESSAGE_DUPLICATE_TAGNAME);
+        }
+    }
+
+    private static void verifyColourList(int tagListSize, List<String> userInputTagColours) throws ParseException {
+        if (userInputTagColours.isEmpty()) {
+            throw new ParseException(MESSAGE_EMPTY_TAG_COLOUR_LIST);
+        }
+        if (userInputTagColours.size() != 1 && userInputTagColours.size() != tagListSize) {
+            logger.finer("Invalid number of colours. ");
+            throw new ParseException(MESSAGE_TAGNAME_NUMBER_AND_COLOUR_NUMBERS_DIFF);
+        }
     }
 
     /**
