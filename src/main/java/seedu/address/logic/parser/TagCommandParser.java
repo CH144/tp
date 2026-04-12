@@ -35,22 +35,9 @@ public class TagCommandParser implements Parser<TagCommand> {
     public TagCommand parse(String args) throws ParseException {
         requireNonNull(args);
         logger.finer("Parsing Tag Command");
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ADD_TAG, PREFIX_DELETE_TAG, PREFIX_COLOUR_TAG);
-
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException parseException) {
-            throw new ParseException(parseException.getMessage() + "\n\n" + TagCommand.MESSAGE_USAGE);
-        }
-
-        argMultimap.verifyAtLeastOnePrefixFor(PREFIX_ADD_TAG, PREFIX_DELETE_TAG);
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ADD_TAG, PREFIX_DELETE_TAG, PREFIX_COLOUR_TAG);
-
-        argMultimap.verifyNoPrefixCombinationFor(PREFIX_DELETE_TAG, PREFIX_ADD_TAG);
-        argMultimap.verifyNoPrefixCombinationFor(PREFIX_DELETE_TAG, PREFIX_COLOUR_TAG);
+        Index index = verifyValidCommandFormat(argMultimap);
 
         Set<Tag> tagsToUpdate;
         Optional<String> tagsAsStringToAdd = argMultimap.getValue(PREFIX_ADD_TAG);
@@ -75,14 +62,31 @@ public class TagCommandParser implements Parser<TagCommand> {
             logger.finer("Tags to delete: " + tagsToUpdate.toString());
             return new TagCommand(index, tagsToUpdate, false);
         }
-        logger.finer("ERROR: TagCommandParser has no add or delete any tags fields.");
+        logger.finer("ERROR: TagCommandParser has no add or delete tags fields.");
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * Calls ParserUtil functions to verify that the command format in {@code argMultimap} is valid.
+     */
+    private Index verifyValidCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException parseException) {
+            throw new ParseException(parseException.getMessage() + "\n\n" + TagCommand.MESSAGE_USAGE);
+        }
+
+        argMultimap.verifyAtLeastOnePrefixFor(PREFIX_ADD_TAG, PREFIX_DELETE_TAG);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ADD_TAG, PREFIX_DELETE_TAG, PREFIX_COLOUR_TAG);
+        argMultimap.verifyNoPrefixCombinationFor(PREFIX_DELETE_TAG, PREFIX_ADD_TAG);
+        argMultimap.verifyNoPrefixCombinationFor(PREFIX_DELETE_TAG, PREFIX_COLOUR_TAG);
+
+        return index;
+    }
+
+    /**
+     * Parses {@code List<String> tags} and {@code List<String> colours} into a {@code Set<Tag>}
      */
     private Set<Tag> parseTagsForEdit(List<String> tags, List<String> colours) throws ParseException {
         return ParserUtil.parseTags(processTagStrings(tags), colours);
