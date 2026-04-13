@@ -15,7 +15,7 @@ public class Email {
             "Emails should be of the format 'local-part@domain', where 'local-part' should\n"
             + "  1) contain only alphanumeric characters and " + SPECIAL_CHARACTERS + "\n"
             + "  2) not start or end with " + SPECIAL_CHARACTERS + "\n"
-            + "and 'domain' is made of domain labels where each should\n"
+            + "and 'domain' is made of at least 2 domain labels where each should\n"
             + "  1) be separated by .\n"
             + "  2) contain only alphanumeric characters and hyphens\n"
             + "  3) start and end only with alphanumeric characters\n"

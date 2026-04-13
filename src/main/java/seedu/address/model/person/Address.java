@@ -13,7 +13,7 @@ public class Address {
            "Addresses should consist of only alphanumeric characters,\n"
             + "and these three special characters # , -\n"
             + "and should be at most 100 characters long.\n\n"
-            + "Utility:\nleading and trailing whitespaces will be trimmed."
+            + "Utility:\nLeading and trailing whitespaces will be trimmed. "
             + "Internal whitespaces will be trimmed to 1.";
 
     /**
