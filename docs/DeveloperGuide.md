@@ -604,7 +604,7 @@ Prerequisites: List all employee contacts using the `list` command. Multiple con
    1. Prerequisites: Employee contact at index 1 has no certificate named "Marketing" (case-insensitive).
    2. Test case: `cert-add 1 n/Marketing`<br>
       Expected: Marketing certificate is added to the first contact with "No Expiry" displayed.
-
+<br><br>
 3. Editing existing certificate's name and date
    1. Prerequisites: Employee contact at index 1 has an "OSCP" certificate.
    2. Test case (Change name and date): `cert-edit 1 n/OSCP ne/CISSP ee/2027-01-01`<br>
@@ -688,7 +688,7 @@ Prerequisites: List all persons using the `list` command. Multiple persons in th
    2. Corrupt a date: Change a certificate expiry date to an invalid format (e.g. "2026-13-45").
    3. Relaunch: Start the application.
    4. Expected: The app detects the illegal value, logs a warning, and starts with an empty AddressBook to prevent a crash.
-
+<br><br>
 2. Simulating "No Expiry" in Storage
    1. Simulation: Manually edit `data/addressbook.json` and set a certificate's expiry to "No Expiry".
    2. Relaunch: Start the application.
