@@ -682,10 +682,10 @@ Prerequisites: List all persons using the `list` command. Multiple persons in th
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     2. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+       Expected: First contact is deleted from the list.
 
     3. Test case: `delete 0`<br>
-       Expected: No person is deleted. Format error details shown in the status message.
+       Expected: No person is deleted. Format error details shown in the help pop-up.
 
     4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous
