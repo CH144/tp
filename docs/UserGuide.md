@@ -103,6 +103,13 @@ Format: `help`
 
 <img src="images/helpMessage.png" width="750" style="margin-bottom:30px"/>
 
+<box type="info" seamless>
+
+**Info on pop-up resizing**
+> The information contained in the pop-up has been formatted to be fully visible without scrolling, and the pop-up automatically resizes. In the unlikely event that system lag causes the automatic resize to fail, and the information to be cut off, you can manually resize the pop-up to a readable size.
+
+</box>
+
 <box type="tip" seamless>
 
 **Tips for in-app help**
